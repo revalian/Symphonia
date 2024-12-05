@@ -1,5 +1,4 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import AppLayout from '@/Layouts/AppLayout';
 
 export default function Dashboard() {
     return (
@@ -15,4 +14,7 @@ export default function Dashboard() {
             </div>
         </AuthenticatedLayout>
     );
+    return <div>Ini Dashboard</div>;
 }
+
+Dashboard.layout = (page) => <AppLayout children={page} title="Dashboard" />;

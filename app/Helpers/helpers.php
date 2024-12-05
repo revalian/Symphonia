@@ -24,7 +24,7 @@ if(!function_exists('usernameGenerator')){
         $original_username = $username;
         $count = 1;
 
-        while(User::where('username',$username)->exist()){
+        while(User::where('username',$username)->exists()){
             $username = $original_username . $count;
 
             $count++;
