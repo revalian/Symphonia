@@ -1,10 +1,13 @@
-import Checkbox from '@/Components/Checkbox';
+import ApplicationLogo from '@/Components/ApplicationLogo';
 import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { Button } from '@/Components/ui/button';
+import { Checkbox } from '@/Components/ui/checkbox';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
+import {IconBrandGoogle} from '@tabler/icons-react';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -13,9 +16,8 @@ export default function Login({ status, canResetPassword }) {
         remember: false,
     });
 
-    const submit = (e) => {
+    const onHandleSubmit = (e) => {
         e.preventDefault();
-
         post(route('login'), {
             onFinish: () => reset('password'),
         });
@@ -26,110 +28,131 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
-        <GuestLayout>
-            <Head title="Log in" />
+        <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2">
+            <div className="flex flex-col px-6 py-4">
+                <ApplicationLogo size="size-12" />
 
-            {status && (
-                <div className="mb-4 text-sm font-medium text-green-600">
-                    {status}
+                <div className="flex flex-col items-center justify-center py-12 lg:py-48">
+                    <div className="mx-auto flex w-full flex-col gap-6 lg:w-1/2">
+                        <div className="grid gap-2 text-center">
+                            {status && (
+                                <Alert variant="success">
+                                    <AlertDescription>{status}</AlertDescription>
+                                </Alert>
+                            )}
+
+                            <h1 className="text-3xl font-bold">Masuk</h1>
+
+                            <p className="text-balance text-muted-foreground">
+                                Masukan email anda di bawah ini untuk masuk ke akun anda
+                            </p>
+                        </div>
+                        <form onSubmit={onHandleSubmit}>
+                            <div className="grid gap-4">
+                                <div className="grip gap-2">
+                                    <Label htmlFor="email">Email</Label>
+                                    <Input
+                                        id="email"
+                                        type="email"
+                                        name="email"
+                                        value={data.email}
+                                        className="mt-1 block w-full"
+                                        autoComplete="username"
+                                        isFocused={true}
+                                        placeholder="symphonia@gmail.com"
+                                        onChange={(e) => setData(e.target.name, e.target.value)}
+                                    />
+
+                                    {errors.email && <InputError message={errors.email} />}
+                                </div>
+
+                                <div className="grid gap-2">
+                                    <div className="flex items-center">
+                                        <Label htmlFor="password">Password</Label>
+                                        {canResetPassword && (
+                                            <Link
+                                                href={route('password.request')}
+                                                className="ml-auto inline-block text-sm underline"
+                                            >
+                                                Lupa Password
+                                            </Link>
+                                        )}
+                                    </div>
+                                    <Input
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        autoComplete="new-password"
+                                        value={data.password}
+                                        onChange={(e) => setData(e.target.name, e.target.value)}
+                                    />
+
+                                    {errors.password && <InputError message={errors.password} />}
+                                </div>
+                                <div className="grid gap-2">
+                                    <div className="items-top flex space-x-2">
+                                        <Checkbox
+                                            id="remember"
+                                            name="remember"
+                                            checked={data.remember}
+                                            onCheckedChange={(checked) => setData('remember', checked)}
+                                        />
+                                        <div className="grid gap-1.5 leading-none">
+                                            <Label htmlFor="remember">Ingat Saya</Label>
+                                        </div>
+                                    </div>
+                                    {errors.remember && <InputError message={errors.remember} />}
+                                </div>
+
+                                <Button
+                                    type="submit"
+                                    variant="orange"
+                                    size="xl"
+                                    className="w-full"
+                                    disabled={processing}
+                                >
+                                    Masuk
+                                </Button>
+                                <div className="my-4 flex items-center">
+                                <hr className="w-full border-t border-gray-300" />
+                                <span className="px-4 text-gray-500">atau</span>
+                                <hr className="w-full border-t border-gray-300" />
+                            </div>
+                            
+                            <Button
+                                    type="submit"
+                                    variant="red"
+                                    size="xl"
+                                    className="w-full"
+                                    disabled={processing}
+                                    onClick={handleGoogleLogin}
+                                    
+                                >
+                                    <IconBrandGoogle/>
+                                    Masuk dengan Google
+                                </Button>
+                            </div>
+
+                        </form>
+
+                        <div className="mt-4 text-center text-sm">
+                            Belum punya akun {''}
+                            <Link href={route('register')} 
+                            className="underline">
+                                Daftar
+                            </Link>
+                        </div>
+                    </div>
                 </div>
-            )}
-
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        isFocused={true}
-                        onChange={(e) => setData('email', e.target.value)}
-                    />
-
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="current-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4 block">
-                    <label className="flex items-center">
-                        <Checkbox
-                            name="remember"
-                            checked={data.remember}
-                            onChange={(e) =>
-                                setData('remember', e.target.checked)
-                            }
-                        />
-                        <span className="ms-2 text-sm text-gray-600">
-                            Remember me
-                        </span>
-                    </label>
-                </div>
-
-                <div className="mt-4 flex items-center justify-end">
-                    {canResetPassword && (
-                        <Link
-                            href={route('password.request')}
-                            className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                        >
-                            Forgot your password?
-                        </Link>
-                    )}
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
-                    </PrimaryButton>
-                </div>
-            </form>
-
-            <div className="mt-6 flex justify-center">
-                <button
-                    onClick={handleGoogleLogin}
-                    className="flex items-center justify-center w-full px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-                >
-                    <svg
-                        className="w-5 h-5 mr-2"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 48 48"
-                    >
-                        <path
-                            fill="#EA4335"
-                            d="M24 9.5c3.04 0 5.79 1.07 7.93 2.83l5.93-5.93C34.67 3.34 29.63 1.5 24 1.5 14.98 1.5 7.18 7.13 4.18 14.78l6.9 5.36C12.54 14.58 17.8 9.5 24 9.5z"
-                        />
-                        <path
-                            fill="#34A853"
-                            d="M9.1 20.14C8.5 22.14 8.5 24 8.5 24s0 1.86.6 3.86l-6.9 5.36C2.12 27.88 1.5 26 1.5 24c0-2 .62-3.88 1.6-5.5l6.9 5.36z"
-                        />
-                        <path
-                            fill="#FBBC05"
-                            d="M8.5 24s0 1.86.6 3.86l6.9 5.36C15.9 29.42 15.22 26.72 15.22 24c0-2.72.68-5.42 1.6-7.22l-6.9 5.36z"
-                        />
-                        <path
-                            fill="#4285F4"
-                            d="M44.5 24c0 2-.62 3.88-1.6 5.5l-6.9-5.36c.92-1.8 1.6-4.5 1.6-7.22s-.68-5.42-1.6-7.22l6.9 5.36c.98 1.62 1.6 3.5 1.6 5.5z"
-                        />
-                    </svg>
-                    Login with Google
-                </button>
             </div>
-        </GuestLayout>
+            <div className='hidden bg-muted lg:block'>
+                <img src="/images/login.webp" alt="Login" 
+                className='h-full w-full object-cover dark:brightness-[0.4] dark:grayscale'
+                
+                />
+            </div>
+        </div>
     );
 }
+
+Login.layout = (page) => <GuestLayout children={page} title="login" />;
