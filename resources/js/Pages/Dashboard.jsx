@@ -18,3 +18,7 @@ export default function Dashboard() {
 }
 
 Dashboard.layout = (page) => <AppLayout children={page} title="Dashboard" />;
+
+
+
+
