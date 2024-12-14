@@ -1,6 +1,7 @@
 <?php 
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->prefix('admin')->group(function(){
@@ -20,4 +21,21 @@ Route::middleware(['auth'])->prefix('admin')->group(function(){
         Route::delete('categories/destroy/{category}','destroy')->name('admin.categories.destroy');
         
     });
+
+
+    Route::controller(SupplierController::class)->group(function(){
+        Route::get('suppliers','index')->name('admin.suppliers.index');
+
+        Route::get('suppliers/create','create')->name('admin.suppliers.create');
+
+        Route::post('suppliers.create','store')->name('admin.suppliers.store');
+
+        Route::get('suppliers/edit/{supplier}','edit')->name('admin.suppliers.edit');
+
+        Route::put('suppliers/edit/{supplier}','update')->name('admin.suppliers.update');
+        
+        Route::delete('suppliers/destroy/{supplier}','destroy')->name('admin.suppliers.destroy');
+        
+    });
+
 });
