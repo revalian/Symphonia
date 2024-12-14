@@ -4,20 +4,14 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\SocialiteController;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::redirect('/','login');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function(){
+    Route::get('dashboard', 'index')->name('dashboard');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,4 +23,8 @@ Route::get ('/auth/redirect', [SocialiteController::class,'redirect'])->name('au
 
 Route::get('/auth/google/callback', [SocialiteController::class,'callback']);
 
+Route::get('testing', fn()=> inertia('Testing'));
+
 require __DIR__.'/auth.php';
+
+require __DIR__.'/admin.php';
