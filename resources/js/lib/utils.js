@@ -12,7 +12,7 @@ export const FINEPAYMENTSTATUS = {
 };
 
 export function flashMessage(params) {
-    return params.props.flash.flash_message;
+    return params.props.flash_message;
 }
 
 export const formatToRupiah = (amount) => {

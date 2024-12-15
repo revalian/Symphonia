@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-trait hasfile
+trait HasFile
 {
     public function upload_file(Request $request, string $column, string $folder): ?string
     {

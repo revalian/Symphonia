@@ -10,11 +10,12 @@ import {
     DropdownMenuTrigger,
 } from '@/Components/ui/dropdown-menu';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/Components/ui/sheet';
-import { Toaster } from '@/Components/ui/toaster';
+
 import { Head, usePage } from '@inertiajs/react';
 import { IconLayoutSidebar } from '@tabler/icons-react';
 
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
+import { Toaster } from 'sonner';
 import Sidebar from './Partials/Sidebar';
 import SidebarResponsive from './Partials/SidebarResponsive';
 

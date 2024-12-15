@@ -39,8 +39,18 @@ export default function Sidebar({ url, auth }) {
             <NavLink url="#" title="Laporan Stok Alat Musik" icon={IconPiano} />
 
             <div className="text-foregorund px-3 py-2 text-sm font-semibold">Master</div>
-            <NavLink url="#" title="Kategori" icon={IconCategory} />
-            <NavLink url="#" title="Pemasok" icon={IconBuildingCommunity} />
+            <NavLink
+                url={route('admin.categories.index')}
+                active={url.startsWith('/admin/categories')}
+                title="Kategori"
+                icon={IconCategory}
+            />
+            <NavLink
+                url={route('admin.suppliers.index')}
+                active={url.startsWith('/admin/suppliers')}
+                title="Pemasok"
+                icon={IconBuildingCommunity}
+            />
             <NavLink url="#" title="Instrument" icon={IconMusic} />
             <NavLink url="#" title="Pengguna" icon={IconUsersGroup} />
             <NavLink url="#" title="Pengaturan Denda" icon={IconSettingsExclamation} />
