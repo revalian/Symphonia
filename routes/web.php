@@ -13,6 +13,10 @@ Route::controller(DashboardController::class)->middleware(['auth', 'verified'])-
     Route::get('dashboard', 'index')->name('dashboard');
 });
 
+Route::get('/', function () {
+    return Inertia::render('LandingPage');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
