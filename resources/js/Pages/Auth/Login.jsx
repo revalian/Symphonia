@@ -7,7 +7,7 @@ import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Link, useForm } from '@inertiajs/react';
-import {IconBrandGoogle} from '@tabler/icons-react';
+import { IconBrandGoogle } from '@tabler/icons-react';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -56,9 +56,7 @@ export default function Login({ status, canResetPassword }) {
                                         type="email"
                                         name="email"
                                         value={data.email}
-                                        className="mt-1 block w-full"
                                         autoComplete="username"
-                                        isFocused={true}
                                         placeholder="symphonia@gmail.com"
                                         onChange={(e) => setData(e.target.name, e.target.value)}
                                     />
@@ -114,41 +112,39 @@ export default function Login({ status, canResetPassword }) {
                                     Masuk
                                 </Button>
                                 <div className="my-4 flex items-center">
-                                <hr className="w-full border-t border-gray-300" />
-                                <span className="px-4 text-gray-500">atau</span>
-                                <hr className="w-full border-t border-gray-300" />
-                            </div>
-                            
-                            <Button
+                                    <hr className="w-full border-t border-gray-300" />
+                                    <span className="px-4 text-gray-500">atau</span>
+                                    <hr className="w-full border-t border-gray-300" />
+                                </div>
+
+                                <Button
                                     type="submit"
                                     variant="red"
                                     size="xl"
                                     className="w-full"
                                     disabled={processing}
                                     onClick={handleGoogleLogin}
-                                    
                                 >
-                                    <IconBrandGoogle/>
+                                    <IconBrandGoogle />
                                     Masuk dengan Google
                                 </Button>
                             </div>
-
                         </form>
 
                         <div className="mt-4 text-center text-sm">
                             Belum punya akun {''}
-                            <Link href={route('register')} 
-                            className="underline">
+                            <Link href={route('register')} className="underline">
                                 Daftar
                             </Link>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className='hidden bg-muted lg:block'>
-                <img src="/images/login.webp" alt="Login" 
-                className='h-full w-full object-cover dark:brightness-[0.4] dark:grayscale'
-                
+            <div className="hidden bg-muted lg:block">
+                <img
+                    src="/images/login.webp"
+                    alt="Login"
+                    className="h-full w-full object-cover dark:brightness-[0.4] dark:grayscale"
                 />
             </div>
         </div>

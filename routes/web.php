@@ -9,7 +9,7 @@ use App\Http\Controllers\Auth\SocialiteController;
 
 Route::redirect('/','login');
 
-Route::controller(DashboardController::class)->middleware(['auth'])->group(function(){
+Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function(){
     Route::get('dashboard', 'index')->name('dashboard');
 });
 
@@ -26,3 +26,5 @@ Route::get('/auth/google/callback', [SocialiteController::class,'callback']);
 Route::get('testing', fn()=> inertia('Testing'));
 
 require __DIR__.'/auth.php';
+
+require __DIR__.'/admin.php';
