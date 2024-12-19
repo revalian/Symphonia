@@ -7,7 +7,7 @@ const SelectGroup = ({ name, id, options, value, onChange, error, placeholder })
         <Label htmlFor={id}>{name}</Label>
         <Select defaultValue={value} onValueChange={onChange}>
             <SelectTrigger>
-                <SelectValue>{options.find(opt => opt.value == value)?.label || placeholder}</SelectValue>
+                <SelectValue>{options.find((opt) => opt.value == value)?.label || placeholder}</SelectValue>
             </SelectTrigger>
             <SelectContent>
                 {options.map((opt, index) => (

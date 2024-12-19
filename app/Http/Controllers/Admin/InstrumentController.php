@@ -24,13 +24,30 @@ class InstrumentController extends Controller
     public function index()
     {
         $instruments = Instrument::query()
-        ->select(['id', 'instrument_code', 'name', 'brand', 'manufacture_year', 'serial_number', 'origin', 'status', 'rental_price_per_day', 'category_id', 'supplier_id', 'created_at'])
-        ->filter(request()->only(['search']))
-        ->sorting(request()->only(['field', 'direction']))
-        ->with(['category', 'stock', 'supplier'])
-        ->latest('created_at')
-        ->paginate(request()->load ?? 10)
-        ->withQueryString();
+    ->select([
+        'instruments.id', 
+        'instrument_code', 
+        'name', 
+        'brand', 
+        'manufacture_year', 
+        'serial_number', 
+        'origin', 
+        'status', 
+        'rental_price_per_day', 
+        'category_id', 
+        'supplier_id', 
+        'instruments.created_at',
+        'stocks.total'
+    ])
+    ->distinct() // Tambahkan DISTINCT
+    ->leftJoin('stocks', 'stocks.instrument_id', '=', 'instruments.id')
+    ->filter(request()->only(['search']))
+    ->sorting(request()->only(['field', 'direction']))
+    ->with(['category', 'stock', 'supplier'])
+    ->latest('instruments.created_at')
+    ->paginate(request()->load ?? 10)
+    ->withQueryString();
+
 
         return inertia('Admin/Instruments/Index', [
             'page_settings' => [

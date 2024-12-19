@@ -49,18 +49,18 @@ export default function SidebarResponsive({ url, auth }) {
                     title="Kategori"
                     icon={IconCategory}
                 />
-<<<<<<< Updated upstream
                 <NavLinkResponsive
                     url={route('admin.suppliers.index')}
                     active={url.startsWith('/admin/suppliers')}
                     title="Pemasok"
                     icon={IconBuildingCommunity}
                 />
-                <NavLinkResponsive url="#" title="Instrument" icon={IconMusic} />
-=======
-                <NavLinkResponsive  url={route('admin.suppliers.index')}active={url.startsWith('/admin/suppliers')} title="Pemasok" icon={IconBuildingCommunity} />
-                <NavLinkResponsive url={route('admin.instruments.index')}active={url.startsWith('/admin/instruments')} title="Instrument" icon={IconMusic} />
->>>>>>> Stashed changes
+                <NavLinkResponsive
+                    url={route('admin.instruments.index')}
+                    active={url.startsWith('/admin/instruments')}
+                    title="Instrument"
+                    icon={IconMusic}
+                />
                 <NavLinkResponsive url="#" title="Pengguna" icon={IconUsersGroup} />
                 <NavLinkResponsive url="#" title="Pengaturan Denda" icon={IconSettingsExclamation} />
 

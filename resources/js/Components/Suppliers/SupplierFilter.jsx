@@ -3,19 +3,14 @@ import { Input } from '@/Components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import { IconRefresh } from '@tabler/icons-react';
 
-export default function InstrumentFilter({ params, setParams, state }) {
+export default function SupplierFilter({ params, setParams, state }) {
     return (
         <div className="flex w-full flex-col gap-4 lg:flex-row lg:items-center">
             <Input
                 className="w-full sm:w-1/4"
                 placeholder="Search..."
                 value={params?.search}
-                onChange={(e) =>
-                    setParams((prev) => ({
-                        ...prev,
-                        search: e.target.value,
-                    }))
-                }
+                onChange={(e) => setParams((prev) => ({ ...prev, search: e.target.value }))}
             />
             <Select value={params?.load} onValueChange={(e) => setParams({ ...params, load: e })}>
                 <SelectTrigger className="w-full sm:w-24">

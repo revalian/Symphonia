@@ -1,14 +1,14 @@
 import HeaderTitle from '@/Components/HeaderTitle';
-import InstrumentTable from '@/Components/Instruments/InstrumentTable';
 import InstrumentFilter from '@/Components/Instruments/InstrumentFilter';
 import InstrumentPagination from '@/Components/Instruments/InstrumentPagination';
-import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
-import AppLayout from '@/Layouts/AppLayout';
-import { useState } from 'react';
-import { useFilter } from '@/hooks/useFilter';
+import InstrumentTable from '@/Components/Instruments/InstrumentTable';
 import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
+import { useFilter } from '@/hooks/useFilter';
+import AppLayout from '@/Layouts/AppLayout';
 import { Link } from '@inertiajs/react';
-import { IconPlus, IconMusic } from '@tabler/icons-react';
+import { IconMusic, IconPlus } from '@tabler/icons-react';
+import { useState } from 'react';
 
 export default function Index(props) {
     const { data: instruments, meta } = props.instruments;
@@ -31,7 +31,11 @@ export default function Index(props) {
     return (
         <div className="flex w-full flex-col pb-32">
             <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
-                <HeaderTitle title={props.page_settings.title} subtitle={props.page_settings.subtitle} icon={IconMusic} />
+                <HeaderTitle
+                    title={props.page_settings.title}
+                    subtitle={props.page_settings.subtitle}
+                    icon={IconMusic}
+                />
                 <Button variant="orange" size="lg" asChild>
                     <Link href={route('admin.instruments.create')}>
                         <IconPlus className="size-4" />

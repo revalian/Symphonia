@@ -1,16 +1,15 @@
 import HeaderTitle from '@/Components/HeaderTitle';
-import InputError from '@/Components/InputError';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
-import { Input } from '@/Components/ui/input';
-import { Label } from '@/Components/ui/label';
-import { Textarea } from '@/Components/ui/textarea';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconBuildingCommunity, IconCategory } from '@tabler/icons-react';
+import { IconArrowLeft, IconBuildingCommunity } from '@tabler/icons-react';
 import { useRef } from 'react';
 import { toast } from 'sonner';
+
+import InputField from '@/Components/Suppliers/InputField';
+import TextareaField from '@/Components/Suppliers/TextareaField';
 
 export default function Create(props) {
     const fileInputLogo = useRef(null);
@@ -24,7 +23,13 @@ export default function Create(props) {
         _method: props.page_settings.method,
     });
 
-    const onHandleChange = (e) => setData(e.target.name, e.target.value);
+    const onHandleChange = (e) => {
+        if (e.target.type === 'file') {
+            setData(e.target.name, e.target.files[0]);
+        } else {
+            setData(e.target.name, e.target.value);
+        }
+    };
 
     const onHandelSubmit = (e) => {
         e.preventDefault();
@@ -63,68 +68,53 @@ export default function Create(props) {
             <Card>
                 <CardContent className="p-6">
                     <form className="space-y-6" onSubmit={onHandelSubmit}>
-                        <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="name">Nama</Label>
-                            <Input
-                                name="name"
-                                id="name"
-                                type="text"
-                                placeholder="Masukan nama..."
-                                value={data.name}
-                                onChange={onHandleChange}
-                            />
-                            {errors.name && <InputError message={errors.name} />}
-                        </div>
+                        <InputField
+                            label="Nama"
+                            name="name"
+                            value={data.name}
+                            onChange={onHandleChange}
+                            placeholder="Masukan nama..."
+                            error={errors.name}
+                        />
 
-                        <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="address">Alamat</Label>
-                            <Textarea
-                                name="address"
-                                id="address"
-                                placeholder="Masukan alamat..."
-                                value={data.address}
-                                onChange={onHandleChange}
-                            ></Textarea>
-                            {errors.address && <InputError message={errors.address} />}
-                        </div>
+                        <TextareaField
+                            label="Alamat"
+                            name="address"
+                            value={data.address}
+                            onChange={onHandleChange}
+                            placeholder="Masukan alamat..."
+                            error={errors.address}
+                        />
 
-                        <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="email">Email</Label>
-                            <Input
-                                name="email"
-                                id="email"
-                                type="email"
-                                placeholder="Masukan email..."
-                                value={data.email}
-                                onChange={onHandleChange}
-                            />
-                            {errors.email && <InputError message={errors.email} />}
-                        </div>
+                        <InputField
+                            label="Email"
+                            name="email"
+                            type="email"
+                            value={data.email}
+                            onChange={onHandleChange}
+                            placeholder="Masukan email..."
+                            error={errors.email}
+                        />
 
-                        <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="email">Nomor Handphone</Label>
-                            <Input
-                                name="phone"
-                                id="phone"
-                                type="phone"
-                                placeholder="Masukan nomor handphone..."
-                                value={data.phone}
-                                onChange={onHandleChange}
-                            />
-                            {errors.phone && <InputError message={errors.phone} />}
-                        </div>
+                        <InputField
+                            label="Nomor Handphone"
+                            name="phone"
+                            type="phone"
+                            value={data.phone}
+                            onChange={onHandleChange}
+                            placeholder="Masukan nomor handphone..."
+                            error={errors.phone}
+                        />
 
-                        <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="logo">Logo</Label>
-                            <Input
-                                name="logo"
-                                id="logo"
-                                type="file"
-                                onChange={(e) => setData(e.target.name, e.target.files[0])}
-                                ref={fileInputLogo}
-                            />
-                            {errors.logo && <InputError message={errors.logo} />}
-                        </div>
+                        <InputField
+                            Label="Logo"
+                            name="logo"
+                            id="logo"
+                            type="file"
+                            placeholder="Masukan gambar alat musik..."
+                            onChange={onHandleChange}
+                            error={errors.logo}
+                        />
 
                         <div className="flex justify-end gap-x-2">
                             <Button type="button" variant="ghost" size="lg" onClick={onHandleReset}>

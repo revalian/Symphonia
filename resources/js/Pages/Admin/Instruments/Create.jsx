@@ -1,9 +1,9 @@
-import { Button } from '@/Components/ui/button';
-import { Card, CardContent } from '@/Components/ui/card';
 import HeaderTitle from '@/Components/HeaderTitle';
 import InputGroup from '@/Components/Instruments/InputGroup';
 import SelectGroup from '@/Components/Instruments/SelectGroup';
 import TextareaGroup from '@/Components/Instruments/TextareaGroup';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent } from '@/Components/ui/card';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
@@ -30,13 +30,13 @@ export default function Create(props) {
     });
 
     const onHandleChange = (e) => {
-        if (e.target.type === "file") {
-            setData(e.target.name, e.target.files[0]); 
+        if (e.target.type === 'file') {
+            setData(e.target.name, e.target.files[0]);
         } else {
-            setData(e.target.name, e.target.value); 
+            setData(e.target.name, e.target.value);
         }
     };
-    
+
     const onHandleSubmit = (e) => {
         e.preventDefault();
         post(props.page_settings.action, {
@@ -93,7 +93,7 @@ export default function Create(props) {
                         <SelectGroup
                             name="Tahun Pembuatan"
                             id="manufacture_year"
-                            options={props.page_data.manufactureYears.map(year => ({ value: year, label: year }))}
+                            options={props.page_data.manufactureYears.map((year) => ({ value: year, label: year }))}
                             value={data.manufacture_year}
                             onChange={(value) => setData('manufacture_year', value)}
                             error={errors.manufacture_year}
@@ -110,7 +110,7 @@ export default function Create(props) {
                         <SelectGroup
                             name="Asal"
                             id="origin"
-                            options={props.page_data.origins.map(origin => ({
+                            options={props.page_data.origins.map((origin) => ({
                                 value: origin.value,
                                 label: origin.label,
                             }))}
@@ -130,9 +130,8 @@ export default function Create(props) {
                         <InputGroup
                             name="Image"
                             id="image"
-                            type='file'
+                            type="file"
                             placeholder="Masukan gambar alat musik..."
-                            
                             onChange={onHandleChange}
                             error={errors.image}
                         />
@@ -148,7 +147,7 @@ export default function Create(props) {
                         <SelectGroup
                             name="Kategori"
                             id="category_id"
-                            options={props.page_data.categories.map(category_id => ({
+                            options={props.page_data.categories.map((category_id) => ({
                                 value: category_id.value,
                                 label: category_id.label,
                             }))}
@@ -160,7 +159,7 @@ export default function Create(props) {
                         <SelectGroup
                             name="Pemasok"
                             id="supplier_id"
-                            options={props.page_data.suppliers.map(supplier_id => ({
+                            options={props.page_data.suppliers.map((supplier_id) => ({
                                 value: supplier_id.value,
                                 label: supplier_id.label,
                             }))}

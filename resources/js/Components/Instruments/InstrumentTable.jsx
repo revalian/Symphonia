@@ -1,11 +1,10 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
-import { Button } from '@/Components/ui/button';
-import { Link } from '@inertiajs/react';
-import { IconPencil, IconArrowsDownUp } from '@tabler/icons-react';
 import AlertDialogComponent from '@/Components/Instruments/AlertDialogComponent';
-import { router } from '@inertiajs/react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
+import { Button } from '@/Components/ui/button';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import { flashMessage } from '@/lib/utils';
+import { Link, router } from '@inertiajs/react';
+import { IconArrowsDownUp, IconPencil } from '@tabler/icons-react';
 import { toast } from 'sonner';
 
 export default function InstrumentTable({ instruments, meta, onSortable }) {
@@ -13,16 +12,130 @@ export default function InstrumentTable({ instruments, meta, onSortable }) {
         <Table className="w-full">
             <TableHeader>
                 <TableRow>
-                    {['#', 'Kode Alat Musik', 'Nama alat musik', 'Merek', 'Stok', 'Tahun Pembuatan', 'Seri', 'Asal', 'Status', 'Harga', 'Image', 'Kategori', 'Penerbit', 'Dibuat pada', 'Aksi'].map((heading, index) => (
-                        <TableHead key={index}>
-                            <Button variant="ghost" className="group inline-flex" onClick={() => onSortable(heading)}>
-                                {heading}
-                                <IconArrowsDownUp className="size-4 ml-2 text-muted-foreground" />
-                            </Button>
-                        </TableHead>
-                    ))}
+                    <TableHead>
+                        <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('id')}>
+                            #
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>
+                        <Button
+                            variant="ghost"
+                            className="group inline-flex"
+                            onClick={() => onSortable('instrument_code')}
+                        >
+                            Kode Alat Musik
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>
+                        <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('name')}>
+                            Nama
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>
+                        <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('brand')}>
+                            Merek
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>
+                        <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('total')}>
+                            Stok
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>
+                        <Button
+                            variant="ghost"
+                            className="group inline-flex"
+                            onClick={() => onSortable('manufacture_year')}
+                        >
+                            Tahun Pembuatan
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>
+                        <Button
+                            variant="ghost"
+                            className="group inline-flex"
+                            onClick={() => onSortable('serial_number')}
+                        >
+                            Seri
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>
+                        <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('origin')}>
+                            Asal
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>
+                        <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('status')}>
+                            Status
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>
+                        <Button
+                            variant="ghost"
+                            className="group inline-flex"
+                            onClick={() => onSortable('rental_price_per_day')}
+                        >
+                            Harga Sewa
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>
+                        <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('category')}>
+                            Kategori
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>
+                        <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('supplier')}>
+                            Penerbit
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>
+                        <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('created_at')}>
+                            Dibuat pada
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>Aksi</TableHead>
                 </TableRow>
             </TableHeader>
+
             <TableBody>
                 {instruments.map((instrument, index) => (
                     <TableRow key={index}>
@@ -63,7 +176,6 @@ export default function InstrumentTable({ instruments, meta, onSortable }) {
                                     });
                                 }}
                             />
-
                         </TableCell>
                     </TableRow>
                 ))}
