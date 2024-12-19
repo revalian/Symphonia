@@ -1,6 +1,7 @@
 <?php 
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\InstrumentController;
 use App\Http\Controllers\Admin\SupplierController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,21 @@ Route::middleware(['auth'])->prefix('admin')->group(function(){
         Route::put('suppliers/edit/{supplier}','update')->name('admin.suppliers.update');
         
         Route::delete('suppliers/destroy/{supplier}','destroy')->name('admin.suppliers.destroy');
+        
+    });
+
+    Route::controller(InstrumentController::class)->group(function(){
+        Route::get('instruments','index')->name('admin.instruments.index');
+
+        Route::get('instruments/create','create')->name('admin.instruments.create');
+
+        Route::post('instruments.create','store')->name('admin.instruments.store');
+
+        Route::get('instruments/edit/{instrument}','edit')->name('admin.instruments.edit');
+
+        Route::put('instruments/edit/{instrument}','update')->name('admin.instruments.update');
+        
+        Route::delete('instruments/destroy/{instrument}','destroy')->name('admin.instruments.destroy');
         
     });
 
