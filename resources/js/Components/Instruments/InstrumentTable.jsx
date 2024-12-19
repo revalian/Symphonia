@@ -109,6 +109,14 @@ export default function InstrumentTable({ instruments, meta, onSortable }) {
                         </Button>
                     </TableHead>
                     <TableHead>
+                        <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('image')}>
+                            Image
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>
                         <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('category')}>
                             Kategori
                             <span className="ml-2 flex-none rounded text-muted-foreground">

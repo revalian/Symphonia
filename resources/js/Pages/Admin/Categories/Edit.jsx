@@ -1,16 +1,14 @@
-import HeaderTitle from '@/Components/HeaderTitle';
-import InputError from '@/Components/InputError';
-import { Button } from '@/Components/ui/button';
-import { Card, CardContent } from '@/Components/ui/card';
-import { Input } from '@/Components/ui/input';
-import { Label } from '@/Components/ui/label';
-import { Textarea } from '@/Components/ui/textarea';
-import AppLayout from '@/Layouts/AppLayout';
-import { flashMessage } from '@/lib/utils';
-import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconCategory } from '@tabler/icons-react';
 import { useRef } from 'react';
+import { useForm } from '@inertiajs/react';
 import { toast } from 'sonner';
+import { Card, CardContent } from '@/Components/ui/card';
+import { flashMessage } from '@/lib/utils';
+import AppLayout from '@/Layouts/AppLayout';
+import HeaderSection from '@/Components/Categories/HeaderSection';
+import InputField from '@/Components/Categories/InputField';
+import TextareaField from '@/Components/Categories/TextareaField';
+import FileInputField from '@/Components/Categories/FileInputField';
+import FormActions from '@/Components/Categories/FormActions';
 
 export default function Edit(props) {
     const fileInputCover = useRef(null);
@@ -45,67 +43,36 @@ export default function Edit(props) {
 
     return (
         <div className="flex w-full flex-col pb-32">
-            <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
-                <HeaderTitle
-                    title={props.page_settings.title}
-                    subtitle={props.page_settings.subtitle}
-                    icon={IconCategory}
-                />
-                <Button variant="orange" size="lg" asChild>
-                    <Link href={route('admin.categories.index')}>
-                        <IconArrowLeft className="size-4" />
-                        Kembali
-                    </Link>
-                </Button>
-            </div>
+            <HeaderSection
+                title={props.page_settings.title}
+                subtitle={props.page_settings.subtitle}
+            />
             <Card>
                 <CardContent className="p-6">
                     <form className="space-y-6" onSubmit={onHandelSubmit}>
-                        <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="name">Nama</Label>
-                            <Input
-                                name="name"
-                                id="name"
-                                type="text"
-                                placeholder="Masukan nama..."
-                                value={data.name}
-                                onChange={onHandleChange}
-                            />
-                            {errors.name && <InputError message={errors.name} />}
-                        </div>
-
-                        <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="description">Deskripsi</Label>
-                            <Textarea
-                                name="description"
-                                id="description"
-                                placeholder="Masukan deskripsi..."
-                                value={data.description}
-                                onChange={onHandleChange}
-                            ></Textarea>
-                            {errors.description && <InputError message={errors.description} />}
-                        </div>
-
-                        <div className="grid w-full items-center gap-1.5">
-                            <Label htmlFor="cover">Cover</Label>
-                            <Input
-                                name="cover"
-                                id="cover"
-                                type="file"
-                                onChange={(e) => setData(e.target.name, e.target.files[0])}
-                                ref={fileInputCover}
-                            />
-                            {errors.cover && <InputError message={errors.cover} />}
-                        </div>
-
-                        <div className="flex justify-end gap-x-2">
-                            <Button type="button" variant="ghost" size="lg" onClick={onHandleReset}>
-                                Reset
-                            </Button>
-                            <Button type="submit" variant="orange" size="lg" disabled={processing}>
-                                Save
-                            </Button>
-                        </div>
+                        <InputField
+                            name="name"
+                            id="name"
+                            placeholder="Masukan nama..."
+                            value={data.name}
+                            onChange={onHandleChange}
+                            error={errors.name}
+                        />
+                        <TextareaField
+                            name="description"
+                            id="description"
+                            placeholder="Masukan deskripsi..."
+                            value={data.description}
+                            onChange={onHandleChange}
+                            error={errors.description}
+                        />
+                        <FileInputField
+                            name="cover"
+                            onChange={(e) => setData(e.target.name, e.target.files[0])}
+                            error={errors.cover}
+                            inputRef={fileInputCover}
+                        />
+                        <FormActions onReset={onHandleReset} isProcessing={processing} />
                     </form>
                 </CardContent>
             </Card>
