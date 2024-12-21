@@ -1,4 +1,3 @@
-import AlertDialogComponent from '@/Components/Instruments/AlertDialogComponent';
 import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Button } from '@/Components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
@@ -6,6 +5,7 @@ import { flashMessage } from '@/lib/utils';
 import { Link, router } from '@inertiajs/react';
 import { IconArrowsDownUp, IconPencil } from '@tabler/icons-react';
 import { toast } from 'sonner';
+import AlertDialogComponent from '../DialogsAndActions/AlertDialogComponent';
 
 export default function InstrumentTable({ instruments, meta, onSortable }) {
     return (
@@ -173,7 +173,7 @@ export default function InstrumentTable({ instruments, meta, onSortable }) {
                                 </Link>
                             </Button>
                             <AlertDialogComponent
-                                instrument={() => {
+                                data={() => {
                                     router.delete(route('admin.instruments.destroy', [instrument]), {
                                         preserveScroll: true,
                                         preserveState: true,

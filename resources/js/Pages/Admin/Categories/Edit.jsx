@@ -1,14 +1,14 @@
-import { useRef } from 'react';
-import { useForm } from '@inertiajs/react';
-import { toast } from 'sonner';
+import FormActions from '@/Components/DialogsAndActions/FormActions';
+import TextareaField from '@/Components/FormElements/TextareaField';
+import HeaderSection from '@/Components/DialogsAndActions/HeaderSection';
+import InputField from '@/Components/FormElements/InputField';
 import { Card, CardContent } from '@/Components/ui/card';
-import { flashMessage } from '@/lib/utils';
 import AppLayout from '@/Layouts/AppLayout';
-import HeaderSection from '@/Components/Categories/HeaderSection';
-import InputField from '@/Components/Categories/InputField';
-import TextareaField from '@/Components/Categories/TextareaField';
-import FileInputField from '@/Components/Categories/FileInputField';
-import FormActions from '@/Components/Categories/FormActions';
+import { flashMessage } from '@/lib/utils';
+import { useForm } from '@inertiajs/react';
+import { IconCategory } from '@tabler/icons-react';
+import { useRef } from 'react';
+import { toast } from 'sonner';
 
 export default function Edit(props) {
     const fileInputCover = useRef(null);
@@ -20,7 +20,13 @@ export default function Edit(props) {
         _method: props.page_settings.method,
     });
 
-    const onHandleChange = (e) => setData(e.target.name, e.target.value);
+    const onHandleChange = (e) => {
+        if (e.target.type === 'file') {
+            setData(e.target.name, e.target.files[0]);
+        } else {
+            setData(e.target.name, e.target.value);
+        }
+    };
 
     const onHandelSubmit = (e) => {
         e.preventDefault();
@@ -46,13 +52,15 @@ export default function Edit(props) {
             <HeaderSection
                 title={props.page_settings.title}
                 subtitle={props.page_settings.subtitle}
+                backLink={route('admin.categories.index')}
+                icon={IconCategory}
             />
             <Card>
                 <CardContent className="p-6">
                     <form className="space-y-6" onSubmit={onHandelSubmit}>
                         <InputField
                             name="name"
-                            id="name"
+                            label="Nama"
                             placeholder="Masukan nama..."
                             value={data.name}
                             onChange={onHandleChange}
@@ -60,17 +68,22 @@ export default function Edit(props) {
                         />
                         <TextareaField
                             name="description"
+                            label="Deskripsi"
                             id="description"
                             placeholder="Masukan deskripsi..."
                             value={data.description}
                             onChange={onHandleChange}
                             error={errors.description}
                         />
-                        <FileInputField
+                        <InputField
+                            label="Cover"
                             name="cover"
-                            onChange={(e) => setData(e.target.name, e.target.files[0])}
+                            id="cover"
+                            type="file"
+                            fileRef={fileInputCover}
+                            placeholder="Masukan gambar alat musik..."
+                            onChange={onHandleChange}
                             error={errors.cover}
-                            inputRef={fileInputCover}
                         />
                         <FormActions onReset={onHandleReset} isProcessing={processing} />
                     </form>

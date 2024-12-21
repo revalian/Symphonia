@@ -3,19 +3,19 @@ import { Input } from '@/Components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import { IconRefresh } from '@tabler/icons-react';
 
-export default function CategoryFilter({ params, setParams, resetParams }) {
+export default function Filter({ params, setParams, state }) {
     return (
         <div className="flex w-full flex-col gap-4 lg:flex-row lg:items-center">
             <Input
                 className="w-full sm:w-1/4"
                 placeholder="Search..."
                 value={params?.search}
-                onChange={(e) => {
+                onChange={(e) =>
                     setParams((prev) => ({
                         ...prev,
                         search: e.target.value,
-                    }));
-                }}
+                    }))
+                }
             />
             <Select value={params?.load} onValueChange={(e) => setParams({ ...params, load: e })}>
                 <SelectTrigger className="w-full sm:w-24">
@@ -29,7 +29,7 @@ export default function CategoryFilter({ params, setParams, resetParams }) {
                     ))}
                 </SelectContent>
             </Select>
-            <Button variant="red" onClick={resetParams} size="xl">
+            <Button variant="red" onClick={() => setParams(state)} size="xl">
                 <IconRefresh className="size-4" />
                 Bersihkan
             </Button>

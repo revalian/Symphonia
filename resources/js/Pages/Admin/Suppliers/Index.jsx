@@ -1,6 +1,6 @@
+import Filter from '@/Components/FiltersAndPagination/Filter';
+import Pagination from '@/Components/FiltersAndPagination/Pagination';
 import HeaderTitle from '@/Components/HeaderTitle';
-import SupplierFilter from '@/Components/Suppliers/SupplierFilter';
-import SupplierPagination from '@/Components/Suppliers/SupplierPagination';
 import SupplierTable from '@/Components/Suppliers/SupplierTable';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
@@ -46,20 +46,15 @@ export default function Index(props) {
 
             <Card>
                 <CardHeader>
-                    <SupplierFilter params={params} setParams={setParams} state={props.state} />
+                    <Filter params={params} setParams={setParams} state={props.state} />
                 </CardHeader>
 
                 <CardContent className="px-0 py-0 [&-td]:whitespace-nowrap [&_td]:px-6 [&_th]:px-6">
                     <SupplierTable suppliers={suppliers} meta={meta} onSortable={onSortable} />
                 </CardContent>
 
-                <CardFooter className="flex w-full flex-col items-center justify-between border-t py-2 lg:flex-row">
-                    <p className="mb-2 text-sm text-muted-foreground">
-                        Menampilkan <span className="font-medium text-orange-500">{meta.from ?? 0}</span> dari{' '}
-                        {meta.total} pemasok
-                    </p>
-
-                    <SupplierPagination meta={meta} />
+                <CardFooter>
+                    <Pagination meta={meta} name="Pemasok" />
                 </CardFooter>
             </Card>
         </div>

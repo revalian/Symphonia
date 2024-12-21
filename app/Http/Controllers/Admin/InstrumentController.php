@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Throwable;
+use Inertia\Response;
+use App\Traits\HasFile;
+use App\Models\Category;
+use App\Models\Supplier;
+use App\Enums\MessageType;
+use App\Models\Instrument;
+use Illuminate\Http\Request;
 use App\Enums\InstrumentOrigin;
 use App\Enums\InstrumentStatus;
-use App\Enums\MessageType;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Admin\InstrumentRequest;
 use App\Http\Resources\Admin\InstrumentResource;
-use App\Models\Category;
-use App\Models\Instrument;
-use App\Models\Supplier;
-use App\Traits\HasFile;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Inertia\Response;
-use Throwable;
 
 class InstrumentController extends Controller
 {
@@ -24,29 +25,42 @@ class InstrumentController extends Controller
     public function index()
     {
         $instruments = Instrument::query()
-    ->select([
-        'instruments.id', 
-        'instrument_code', 
-        'name', 
-        'brand', 
-        'manufacture_year', 
-        'serial_number', 
-        'origin', 
-        'status', 
-        'rental_price_per_day', 
-        'category_id', 
-        'supplier_id', 
-        'instruments.created_at',
-        'stocks.total'
-    ])
-    ->distinct() // Tambahkan DISTINCT
-    ->leftJoin('stocks', 'stocks.instrument_id', '=', 'instruments.id')
-    ->filter(request()->only(['search']))
-    ->sorting(request()->only(['field', 'direction']))
-    ->with(['category', 'stock', 'supplier'])
-    ->latest('instruments.created_at')
-    ->paginate(request()->load ?? 10)
-    ->withQueryString();
+        ->select([
+            'instruments.id',
+            'instrument_code',
+            'name',
+            'brand',
+            'manufacture_year',
+            'serial_number',
+            'origin',
+            'status',
+            'rental_price_per_day',
+            'category_id',
+            'supplier_id',
+            'instruments.created_at',
+            DB::raw('MAX(stocks.total) as total')
+        ])
+        ->leftJoin('stocks', 'stocks.instrument_id', '=', 'instruments.id')
+        ->groupBy([
+            'instruments.id', 
+            'instrument_code', 
+            'name', 
+            'brand', 
+            'manufacture_year', 
+            'serial_number', 
+            'origin', 
+            'status', 
+            'rental_price_per_day', 
+            'category_id', 
+            'supplier_id', 
+            'instruments.created_at'
+        ])
+        ->filter(request()->only(['search']))
+        ->sorting(request()->only(['field', 'direction']))
+        ->with(['category', 'supplier'])
+        ->latest('instruments.created_at')
+        ->paginate(request()->load ?? 10)
+        ->withQueryString();
 
 
         return inertia('Admin/Instruments/Index', [
@@ -196,7 +210,7 @@ class InstrumentController extends Controller
             $this->delete_file($instrument, 'image');
             $instrument->delete();
 
-            flashMessage(MessageType::DELETED->message('instrument'));
+            flashMessage(MessageType::DELETED->message('Instrument'));
             return to_route('admin.instruments.index');
         } catch (Throwable $e){
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');

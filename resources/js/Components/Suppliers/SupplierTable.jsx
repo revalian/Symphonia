@@ -1,8 +1,10 @@
+import AlertDialogComponent from '@/Components/DialogsAndActions/AlertDialogComponent'; // This can be an additional component for AlertDialog
 import { Button } from '@/Components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
-import { Link } from '@inertiajs/react';
+import { flashMessage } from '@/lib/utils';
+import { Link, router } from '@inertiajs/react';
 import { IconArrowsDownUp, IconPencil } from '@tabler/icons-react';
-import AlertDialogComponent from './AlertDialogComponent'; // This can be an additional component for AlertDialog
+import { toast } from 'sonner';
 
 export default function SupplierTable({ suppliers, meta, onSortable }) {
     return (
@@ -76,7 +78,18 @@ export default function SupplierTable({ suppliers, meta, onSortable }) {
                                         <IconPencil className="size-4" />
                                     </Link>
                                 </Button>
-                                <AlertDialogComponent supplier={suppliers} />
+                                <AlertDialogComponent
+                                    data={() => {
+                                        router.delete(route('admin.suppliers.destroy', [suppliers]), {
+                                            preserveScroll: true,
+                                            preserveState: true,
+                                            onSuccess: (success) => {
+                                                const flash = flashMessage(success);
+                                                if (flash) toast[flash.type](flash.message);
+                                            },
+                                        });
+                                    }}
+                                />
                             </div>
                         </TableCell>
                     </TableRow>

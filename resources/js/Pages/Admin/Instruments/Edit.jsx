@@ -1,15 +1,15 @@
-import HeaderTitle from '@/Components/HeaderTitle';
-import InputGroup from '@/Components/Instruments/InputGroup';
-import SelectGroup from '@/Components/Instruments/SelectGroup';
-import TextareaGroup from '@/Components/Instruments/TextareaGroup';
-import { Button } from '@/Components/ui/button';
+import HeaderSection from '@/Components/DialogsAndActions/HeaderSection';
+import SelectGroup from '@/Components/FormElements/SelectGroup';
+import InputField from '@/Components/FormElements/InputField';
 import { Card, CardContent } from '@/Components/ui/card';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
-import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconMusic } from '@tabler/icons-react';
+import { useForm } from '@inertiajs/react';
+import { IconMusic } from '@tabler/icons-react';
 import { useRef } from 'react';
 import { toast } from 'sonner';
+import FormActions from '@/Components/DialogsAndActions/FormActions';
+import TextareaField from '@/Components/FormElements/TextareaField';
 
 export default function Edit(props) {
     const fileInputCover = useRef(null);
@@ -57,33 +57,26 @@ export default function Edit(props) {
 
     return (
         <div className="flex w-full flex-col pb-32">
-            <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
-                <HeaderTitle
-                    title={props.page_settings.title}
-                    subtitle={props.page_settings.subtitle}
-                    icon={IconMusic}
-                />
-                <Button variant="orange" size="lg" asChild>
-                    <Link href={route('admin.instruments.index')}>
-                        <IconArrowLeft className="size-4" />
-                        Kembali
-                    </Link>
-                </Button>
-            </div>
+            <HeaderSection
+                title={props.page_settings.title}
+                subtitle={props.page_settings.subtitle}
+                backLink={route('admin.instruments.index')}
+                icon={IconMusic}
+            />
             <Card>
                 <CardContent className="p-6">
                     <form className="space-y-6" onSubmit={onHandleSubmit}>
-                        <InputGroup
-                            name="Nama"
-                            id="name"
+                        <InputField
+                            label="Nama Alat Musik"
+                            name="name"
                             placeholder="Masukan nama alat musik..."
                             value={data.name}
                             onChange={onHandleChange}
                             error={errors.name}
                         />
-                        <InputGroup
-                            name="Merek"
-                            id="brand"
+                        <InputField
+                            label="Merek"
+                            name="brand"
                             placeholder="Masukan merek alat musik..."
                             value={data.brand}
                             onChange={onHandleChange}
@@ -98,9 +91,9 @@ export default function Edit(props) {
                             error={errors.manufacture_year}
                             placeholder="Pilih Tahun Pembuatan"
                         />
-                        <InputGroup
-                            name="Serial Number"
-                            id="serial_number"
+                        <InputField
+                            label="Serial Number"
+                            name="serial_number"
                             placeholder="Masukan serial alat musik..."
                             value={data.serial_number}
                             onChange={onHandleChange}
@@ -118,25 +111,26 @@ export default function Edit(props) {
                             error={errors.origin}
                             placeholder="Pilih Asal Alat Musik"
                         />
-                        <TextareaGroup
-                            name="Deskripsi"
-                            id="description"
-                            placeholder="Masukan deskripsi..."
+                        <TextareaField
+                            label="Deskripsi"
+                            name="description"
                             value={data.description}
                             onChange={onHandleChange}
+                            placeholder="Masukan deskripsi..."
                             error={errors.description}
                         />
-                        <InputGroup
-                            name="Image"
-                            id="image"
+                        <InputField
+                            label="Image"
+                            name="image"
                             type="file"
+                            fileRef={fileInputCover}
                             placeholder="Masukan gambar alat musik..."
                             onChange={onHandleChange}
                             error={errors.image}
                         />
-                        <InputGroup
-                            name="Harga"
-                            id="rental_price_per_day"
+                        <InputField
+                            label="Harga"
+                            name="rental_price_per_day"
                             type="text"
                             placeholder="Masukan harga alat musik..."
                             value={data.rental_price_per_day}
@@ -167,14 +161,7 @@ export default function Edit(props) {
                             error={errors.supplier_id}
                             placeholder="Pilih Pemasok Alat Musik"
                         />
-                        <div className="flex justify-end gap-x-2">
-                            <Button type="button" variant="ghost" size="lg" onClick={onHandleReset}>
-                                Reset
-                            </Button>
-                            <Button type="submit" variant="orange" size="lg" disabled={processing}>
-                                Save
-                            </Button>
-                        </div>
+                        <FormActions onReset={onHandleReset} isProcessing={processing} />
                     </form>
                 </CardContent>
             </Card>

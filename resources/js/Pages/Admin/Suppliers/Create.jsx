@@ -1,15 +1,14 @@
-import HeaderTitle from '@/Components/HeaderTitle';
-import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
-import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconBuildingCommunity } from '@tabler/icons-react';
+import {  useForm } from '@inertiajs/react';
+import {  IconBuildingCommunity } from '@tabler/icons-react';
 import { useRef } from 'react';
 import { toast } from 'sonner';
-
-import InputField from '@/Components/Suppliers/InputField';
-import TextareaField from '@/Components/Suppliers/TextareaField';
+import HeaderSection from '@/Components/DialogsAndActions/HeaderSection';
+import InputField from '@/Components/FormElements/InputField';
+import TextareaField from '@/Components/FormElements/TextareaField';
+import FormActions from '@/Components/DialogsAndActions/FormActions';
 
 export default function Create(props) {
     const fileInputLogo = useRef(null);
@@ -52,19 +51,12 @@ export default function Create(props) {
 
     return (
         <div className="flex w-full flex-col pb-32">
-            <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
-                <HeaderTitle
-                    title={props.page_settings.title}
-                    subtitle={props.page_settings.subtitle}
-                    icon={IconBuildingCommunity}
-                />
-                <Button variant="orange" size="lg" asChild>
-                    <Link href={route('admin.suppliers.index')}>
-                        <IconArrowLeft className="size-4" />
-                        Kembali
-                    </Link>
-                </Button>
-            </div>
+            <HeaderSection
+                title={props.page_settings.title}
+                subtitle={props.page_settings.subtitle}
+                backLink={route('admin.suppliers.index')}
+                icon={IconBuildingCommunity}
+            />
             <Card>
                 <CardContent className="p-6">
                     <form className="space-y-6" onSubmit={onHandelSubmit}>
@@ -107,23 +99,17 @@ export default function Create(props) {
                         />
 
                         <InputField
-                            Label="Logo"
+                            label="Logo"
                             name="logo"
                             id="logo"
                             type="file"
+                            fileRef={fileInputLogo}
                             placeholder="Masukan gambar alat musik..."
                             onChange={onHandleChange}
                             error={errors.logo}
                         />
 
-                        <div className="flex justify-end gap-x-2">
-                            <Button type="button" variant="ghost" size="lg" onClick={onHandleReset}>
-                                Reset
-                            </Button>
-                            <Button type="submit" variant="orange" size="lg" disabled={processing}>
-                                Save
-                            </Button>
-                        </div>
+                        <FormActions onReset={onHandleReset} isProcessing={processing} />
                     </form>
                 </CardContent>
             </Card>

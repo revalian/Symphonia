@@ -1,6 +1,6 @@
+import Filter from '@/Components/FiltersAndPagination/Filter';
+import Pagination from '@/Components/FiltersAndPagination/Pagination';
 import HeaderTitle from '@/Components/HeaderTitle';
-import InstrumentFilter from '@/Components/Instruments/InstrumentFilter';
-import InstrumentPagination from '@/Components/Instruments/InstrumentPagination';
 import InstrumentTable from '@/Components/Instruments/InstrumentTable';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
@@ -13,6 +13,7 @@ import { useState } from 'react';
 export default function Index(props) {
     const { data: instruments, meta } = props.instruments;
     const [params, setParams] = useState(props.state);
+    console.log(meta); // Cek apa yang dikirimkan ke Pagination
 
     const onSortable = (field) => {
         setParams({
@@ -46,13 +47,13 @@ export default function Index(props) {
 
             <Card>
                 <CardHeader>
-                    <InstrumentFilter params={params} setParams={setParams} state={props.state} />
+                    <Filter params={params} setParams={setParams} state={props.state} />
                 </CardHeader>
                 <CardContent className="px-0 py-0">
                     <InstrumentTable instruments={instruments} meta={meta} onSortable={onSortable} />
                 </CardContent>
                 <CardFooter>
-                    <InstrumentPagination meta={meta} />
+                    <Pagination meta={meta} name="Instruments" />
                 </CardFooter>
             </Card>
         </div>

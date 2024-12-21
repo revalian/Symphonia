@@ -1,19 +1,10 @@
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from '@/Components/ui/alert-dialog';
+import AlertDialogComponent from '@/Components/DialogsAndActions/AlertDialogComponent';
 import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Button } from '@/Components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import { flashMessage } from '@/lib/utils';
 import { Link, router } from '@inertiajs/react';
-import { IconArrowsDownUp, IconPencil, IconTrash } from '@tabler/icons-react';
+import { IconArrowsDownUp, IconPencil } from '@tabler/icons-react';
 import { toast } from 'sonner';
 
 export default function CategoryTable({ categories, meta, onSortable }) {
@@ -77,34 +68,18 @@ export default function CategoryTable({ categories, meta, onSortable }) {
                                         <IconPencil className="size-4" />
                                     </Link>
                                 </Button>
-                                <AlertDialog>
-                                    <AlertDialogTrigger asChild>
-                                        <Button variant="red" size="sm">
-                                            <IconTrash size="4" />
-                                        </Button>
-                                    </AlertDialogTrigger>
-                                    <AlertDialogContent>
-                                        <AlertDialogHeader>
-                                            <AlertDialogTitle>Apakah anda benar benar yakin?</AlertDialogTitle>
-                                        </AlertDialogHeader>
-                                        <AlertDialogFooter>
-                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                            <AlertDialogAction
-                                                onClick={() =>
-                                                    router.delete(route('admin.categories.destroy', [category]), {
-                                                        preserveScroll: true,
-                                                        onSuccess: (success) => {
-                                                            const flash = flashMessage(success);
-                                                            if (flash) toast[flash.type](flash.message);
-                                                        },
-                                                    })
-                                                }
-                                            >
-                                                Continue
-                                            </AlertDialogAction>
-                                        </AlertDialogFooter>
-                                    </AlertDialogContent>
-                                </AlertDialog>
+                                <AlertDialogComponent
+                                    data={() => {
+                                        router.delete(route('admin.categories.destroy', [category]), {
+                                            preserveScroll: true,
+                                            preserveState: true,
+                                            onSuccess: (success) => {
+                                                const flash = flashMessage(success);
+                                                if (flash) toast[flash.type](flash.message);
+                                            },
+                                        });
+                                    }}
+                                />
                             </div>
                         </TableCell>
                     </TableRow>

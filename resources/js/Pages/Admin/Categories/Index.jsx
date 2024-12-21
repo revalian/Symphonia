@@ -1,13 +1,13 @@
-import CategoryFilter from '@/Components/Categories/CategoryFilter';
-import CategoryPagination from '@/Components/Categories/CategoryPagination';
 import CategoryTable from '@/Components/Categories/CategoryTable';
+import Filter from '@/Components/FiltersAndPagination/Filter';
+import Pagination from '@/Components/FiltersAndPagination/Pagination';
 import HeaderTitle from '@/Components/HeaderTitle';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
 import { useFilter } from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link } from '@inertiajs/react';
-import { IconMusic, IconPlus } from '@tabler/icons-react';
+import { IconCategory, IconPlus } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
@@ -34,7 +34,7 @@ export default function Index(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconMusic}
+                    icon={IconCategory}
                 />
                 <Button variant="orange" size="lg" asChild>
                     <Link href={route('admin.categories.create')}>
@@ -46,13 +46,13 @@ export default function Index(props) {
 
             <Card>
                 <CardHeader>
-                    <CategoryFilter params={params} setParams={setParams} state={props.state} />
+                    <Filter params={params} setParams={setParams} state={props.state} />
                 </CardHeader>
                 <CardContent className="px-0 py-0">
                     <CategoryTable categories={categories} meta={meta} onSortable={onSortable} />
                 </CardContent>
                 <CardFooter>
-                    <CategoryPagination meta={meta} />
+                    <Pagination meta={meta} name="Kategori" />
                 </CardFooter>
             </Card>
         </div>
