@@ -1,6 +1,8 @@
+import FormActions from '@/Components/DialogsAndActions/FormActions';
 import HeaderSection from '@/Components/DialogsAndActions/HeaderSection';
-import SelectGroup from '@/Components/FormElements/SelectGroup';
 import InputField from '@/Components/FormElements/InputField';
+import SelectGroup from '@/Components/FormElements/SelectGroup';
+import TextareaField from '@/Components/FormElements/TextareaField';
 import { Card, CardContent } from '@/Components/ui/card';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
@@ -8,8 +10,6 @@ import { useForm } from '@inertiajs/react';
 import { IconMusic } from '@tabler/icons-react';
 import { useRef } from 'react';
 import { toast } from 'sonner';
-import FormActions from '@/Components/DialogsAndActions/FormActions';
-import TextareaField from '@/Components/FormElements/TextareaField';
 
 export default function Edit(props) {
     const fileInputCover = useRef(null);

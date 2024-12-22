@@ -55,13 +55,20 @@ export default function SidebarResponsive({ url, auth }) {
                     title="Pemasok"
                     icon={IconBuildingCommunity}
                 />
+
                 <NavLinkResponsive
                     url={route('admin.instruments.index')}
                     active={url.startsWith('/admin/instruments')}
                     title="Instrument"
                     icon={IconMusic}
                 />
-                <NavLinkResponsive url="#" title="Pengguna" icon={IconUsersGroup} />
+
+                <NavLinkResponsive
+                    url={route('admin.users.index')}
+                    active={url.startsWith('/admin/users')}
+                    title="Pengguna"
+                    icon={IconUsersGroup}
+                />
                 <NavLinkResponsive url="#" title="Pengaturan Denda" icon={IconSettingsExclamation} />
 
                 <div className="text-foregorund px-3 py-2 text-sm font-semibold">Peran dan Izin</div>

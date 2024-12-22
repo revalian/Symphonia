@@ -58,7 +58,13 @@ export default function Sidebar({ url, auth }) {
                 title="Instrument"
                 icon={IconMusic}
             />
-            <NavLink url="#" title="Pengguna" icon={IconUsersGroup} />
+
+            <NavLink
+                url={route('admin.users.index')}
+                active={url.startsWith('/admin/users')}
+                title="Pengguna"
+                icon={IconUsersGroup}
+            />
             <NavLink url="#" title="Pengaturan Denda" icon={IconSettingsExclamation} />
 
             <div className="text-foregorund px-3 py-2 text-sm font-semibold">Peran dan Izin</div>

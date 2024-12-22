@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum UserGender: string
 {
-    case MALE = 'Laki-Laki';
+    case Male = 'Laki-Laki';
     case Female = 'Perempuan';
 
     public static function options(): array
