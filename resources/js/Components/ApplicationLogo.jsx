@@ -1,13 +1,20 @@
-import { IconInnerShadowBottomRight } from '@tabler/icons-react';
 import cn from 'classnames';
 
-export default function ApplicationLogo(url = '#', size = 'size-9', isTitle = true) {
+export default function ApplicationLogo({
+    url = '#',
+    size = 'w-12 h-12', // Ukuran default untuk gambar
+    isTitle = true,
+    imageUrl = '/images/logo.png',
+}) {
     return (
         <div href={url} className="flex items-center gap-2">
-            <IconInnerShadowBottomRight
+            {/* Ganti ikon dengan gambar */}
+            <img
+                src={imageUrl}
+                alt="Application Logo"
                 className={cn(
-                    'text-orange-500',
-                    size, // Properti size diambil dari parameter
+                    'rounded', // Tambahkan styling jika perlu
+                    size, // Properti size digunakan untuk mengatur ukuran gambar
                 )}
             />
             {isTitle && (
