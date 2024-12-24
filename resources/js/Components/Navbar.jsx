@@ -6,7 +6,7 @@ export default function Navbar() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     return (
-        <nav className="bg-orange-500 shadow-md">
+        <nav className="sticky top-0 z-50 bg-orange-500 shadow-md">
             <div className="container mx-auto flex items-center justify-between px-4 py-4">
                 {/* Logo and Title */}
                 <div className="flex items-center space-x-2">

@@ -40,9 +40,14 @@ export default function LandingPage() {
     return (
         <>
             <Navbar />
-            <section id="home" className="bg-gray-100 py-16 text-center text-gray-800">
-                <h1 className="mb-6 text-5xl font-bold leading-tight">Selamat Datang di Symphonia</h1>
-                <p className="mb-10 text-lg">Temukan alat musik terbaik untuk disewa dengan harga terjangkau!</p>
+            <section id="home" className="bg-gray-100 text-center text-gray-800">
+                <img
+                    src="/images/background.png"
+                    alt="Deskripsi gambar"
+                    className="mx-auto"
+                    width="6912"
+                    height="3456"
+                />
             </section>
 
             <section id="services" className="container mx-auto px-4 py-16">
