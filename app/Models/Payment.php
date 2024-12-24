@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Rental;
 use App\Enums\FinePaymentStatus;
 use Illuminate\Database\Eloquent\Model;
 

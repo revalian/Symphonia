@@ -69,7 +69,12 @@ export default function SidebarResponsive({ url, auth }) {
                     title="Pengguna"
                     icon={IconUsersGroup}
                 />
-                <NavLinkResponsive url="#" title="Pengaturan Denda" icon={IconSettingsExclamation} />
+                <NavLinkResponsive
+                    url={route('admin.fine-settings.create')}
+                    active={url.startsWith('/admin/fine-settings')}
+                    title="Pengaturan Denda"
+                    icon={IconSettingsExclamation}
+                />
 
                 <div className="text-foregorund px-3 py-2 text-sm font-semibold">Peran dan Izin</div>
                 <NavLinkResponsive url="#" title="Peran" icon={IconCircleKey} />
@@ -79,7 +84,12 @@ export default function SidebarResponsive({ url, auth }) {
                 <NavLinkResponsive url="#" title="Akses Rute" icon={IconRoute} />
 
                 <div className="text-foregorund px-3 py-2 text-sm font-semibold">Transaksi</div>
-                <NavLinkResponsive url="#" title="Peminjaman" icon={IconCreditCard} />
+                <NavLinkResponsive
+                    url={route('admin.loans.index')}
+                    active={url.startsWith('/admin/loans')}
+                    title="Pengguna"
+                    icon={IconCreditCard}
+                />
                 <NavLinkResponsive url="#" title="pengembalian" icon={IconCreditCardRefund} />
 
                 <div className="text-foregorund px-3 py-2 text-sm font-semibold">Lainnya</div>

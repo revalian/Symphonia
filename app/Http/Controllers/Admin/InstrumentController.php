@@ -131,12 +131,7 @@ class InstrumentController extends Controller
                 'category_id' => $request->category_id,
                 'supplier_id' => $request->supplier_id,
             ]);
-
-            $instrument->stock()->create([
-                'total' => $total = $request->total,
-                'available' => $total
-            ]);
-
+            
             flashMessage(MessageType::CREATED->message('Alat Musik'));
             return to_route('admin.instruments.index');
         } catch (Throwable $e) { 

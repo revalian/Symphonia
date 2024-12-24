@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Fine;
+use App\Models\Loan;
+use App\Models\Instrument;
 use App\Enums\ReturnInstrumentStatus;
+use App\Models\ReturnInstrumentCheck;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ReturnInstrument extends Model
 {

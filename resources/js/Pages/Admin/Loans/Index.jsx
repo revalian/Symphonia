@@ -1,4 +1,4 @@
-import CategoryTable from '@/Components/Tables/CategoryTable';
+import LoanTable from '@/Components/Tables/LoanTable';
 import Filter from '@/Components/FiltersAndPagination/Filter';
 import Pagination from '@/Components/FiltersAndPagination/Pagination';
 import HeaderTitle from '@/Components/HeaderTitle';
@@ -7,11 +7,11 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card'
 import { useFilter } from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link } from '@inertiajs/react';
-import { IconCategory, IconPlus } from '@tabler/icons-react';
+import {  IconCreditCardPay, IconPlus } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
-    const { data: categories, meta } = props.categories;
+    const { data: loans, meta } = props.loans;
     const [params, setParams] = useState(props.state);
 
     const onSortable = (field) => {
@@ -23,9 +23,9 @@ export default function Index(props) {
     };
 
     useFilter({
-        route: route('admin.categories.index'),
+        route: route('admin.loans.index'),
         Values: params,
-        only: ['categories'],
+        only: ['loans'],
     });
 
     return (
@@ -34,10 +34,10 @@ export default function Index(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconCategory}
+                    icon={IconCreditCardPay}
                 />
                 <Button variant="orange" size="lg" asChild>
-                    <Link href={route('admin.categories.create')}>
+                    <Link href={route('admin.loans.create')}>
                         <IconPlus className="size-4" />
                         Tambah
                     </Link>
@@ -49,10 +49,10 @@ export default function Index(props) {
                     <Filter params={params} setParams={setParams} state={props.state} />
                 </CardHeader>
                 <CardContent className="px-0 py-0">
-                    <CategoryTable categories={categories} meta={meta} onSortable={onSortable} />
+                    <LoanTable loans={loans} meta={meta} onSortable={onSortable} />
                 </CardContent>
                 <CardFooter>
-                    <Pagination meta={meta} name="Kategori" />
+                    <Pagination meta={meta} name="Peminjaman"/>
                 </CardFooter>
             </Card>
         </div>

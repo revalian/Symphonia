@@ -65,7 +65,12 @@ export default function Sidebar({ url, auth }) {
                 title="Pengguna"
                 icon={IconUsersGroup}
             />
-            <NavLink url="#" title="Pengaturan Denda" icon={IconSettingsExclamation} />
+            <NavLink 
+                url={route('admin.fine-settings.create')}
+                active={url.startsWith('/admin/fine-settings')}
+                title="Pengaturan Denda"
+                icon={IconSettingsExclamation}
+            />
 
             <div className="text-foregorund px-3 py-2 text-sm font-semibold">Peran dan Izin</div>
             <NavLink url="#" title="Peran" icon={IconCircleKey} />
@@ -75,7 +80,12 @@ export default function Sidebar({ url, auth }) {
             <NavLink url="#" title="Akses Rute" icon={IconRoute} />
 
             <div className="text-foregorund px-3 py-2 text-sm font-semibold">Transaksi</div>
-            <NavLink url="#" title="Peminjaman" icon={IconCreditCard} />
+            <NavLink 
+                url={route('admin.loans.index')}
+                active={url.startsWith('/admin/loans')}
+                title="Peminjaman"
+                icon={IconCreditCard}
+            />
             <NavLink url="#" title="pengembalian" icon={IconCreditCardRefund} />
 
             <div className="text-foregorund px-3 py-2 text-sm font-semibold">Lainnya</div>

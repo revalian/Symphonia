@@ -18,6 +18,7 @@ export default function Create(props) {
         email: '',
         password: '',
         password_confirmation: '',
+        phone: '',
         avatar: null,
         gender: null,
         date_of_birth: '',
@@ -84,7 +85,7 @@ export default function Create(props) {
                     value={data.password}
                     onChange={onHandleChange}
                     error={errors.password}
-                    type="password" 
+                    type="password"
                 />
                 <InputField
                     name="password_confirmation"
@@ -93,7 +94,7 @@ export default function Create(props) {
                     value={data.password_confirmation}
                     onChange={onHandleChange}
                     error={errors.password_confirmation}
-                    type="password" 
+                    type="password"
                 />
                 <InputField
                     name="phone"
@@ -103,15 +104,14 @@ export default function Create(props) {
                     onChange={onHandleChange}
                     error={errors.phone}
                 />
-
                 <InputField
-                    label="Cover"
-                    name="cover"
+                    name="avatar"
+                    label="Avatar"
                     type="file"
                     fileRef={fileInputAvatar}
                     placeholder="Masukan gambar ..."
                     onChange={onHandleChange}
-                    error={errors.cover}
+                    error={errors.avatar}
                 />
 
                 <SelectGroup

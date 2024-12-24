@@ -10,7 +10,6 @@ import { IconUsersGroup } from '@tabler/icons-react';
 import { useRef } from 'react';
 import { toast } from 'sonner';
 
-
 export default function Edit(props) {
     const fileInputAvatar = useRef(null);
 
@@ -86,7 +85,7 @@ export default function Edit(props) {
                     value={data.password}
                     onChange={onHandleChange}
                     error={errors.password}
-                    type="password" 
+                    type="password"
                 />
                 <InputField
                     name="password_confirmation"
@@ -95,7 +94,7 @@ export default function Edit(props) {
                     value={data.password_confirmation}
                     onChange={onHandleChange}
                     error={errors.password_confirmation}
-                    type="password" 
+                    type="password"
                 />
                 <InputField
                     name="phone"

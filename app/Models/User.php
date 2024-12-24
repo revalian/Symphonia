@@ -27,6 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'google_id',
         'google_token',
         'google_refresh_token',
+        'phone',
         'username',
         'avatar',
         'gender',
@@ -63,7 +64,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeFilter(Builder $query, array $filters): void
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
-            $query->where(function ($query) use ($search) {
+            $query->where(function ($query) use($search) {
                 $query->whereAny([
                     'name',
                     'username',
@@ -71,7 +72,7 @@ class User extends Authenticatable implements MustVerifyEmail
                     'phone',
                     'gender',
 
-                ], 'REGXP', $search);
+                ], 'REGEXP', $search);
             });
         });
     }

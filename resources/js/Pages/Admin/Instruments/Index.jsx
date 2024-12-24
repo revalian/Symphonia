@@ -1,7 +1,7 @@
 import Filter from '@/Components/FiltersAndPagination/Filter';
 import Pagination from '@/Components/FiltersAndPagination/Pagination';
 import HeaderTitle from '@/Components/HeaderTitle';
-import InstrumentTable from '@/Components/Instruments/InstrumentTable';
+import InstrumentTable from '@/Components/Tables/InstrumentTable';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
 import { useFilter } from '@/hooks/useFilter';
@@ -13,7 +13,6 @@ import { useState } from 'react';
 export default function Index(props) {
     const { data: instruments, meta } = props.instruments;
     const [params, setParams] = useState(props.state);
-    console.log(meta); // Cek apa yang dikirimkan ke Pagination
 
     const onSortable = (field) => {
         setParams({

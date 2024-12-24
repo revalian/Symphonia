@@ -32,7 +32,7 @@ class UserController extends Controller
 
         return inertia('Admin/Users/Index', [
             'page_settings' => [
-                'title' => 'pengguna',
+                'title' => 'Pengguna',
                 'subtitle' => 'Menampilkan semua data pengguna yang tersedia di platform ini.',
             ],
             'users' => UserResource::collection($users)->additional([
@@ -127,9 +127,9 @@ class UserController extends Controller
             $this->delete_file($user, 'avatar');
             $user->delete();
 
-            flashMessage(MessageType::DELETED->message('pengguna'));
+            flashMessage(MessageType::DELETED->message('Pengguna'));
 
-            return to_route('admin.user.index');
+            return to_route('admin.users.index');
         } catch (Throwable $e) {
             flashMessage(MessageType::ERROR->message(error: $e->getMessage()));
             return to_route('admin.users.index');
