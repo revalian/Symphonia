@@ -1,39 +1,59 @@
-import CardItem from '@/Components/CardItem';
+import CardItemCarousel from '@/Components/CardItem'; // Mengimpor Carousel
 import Footer from '@/Components/Footer';
 import Navbar from '@/Components/Navbar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function LandingPage() {
+    // Data instruments yang akan digunakan dalam carousel
     const instruments = [
         {
             title: 'Gitar Akustik',
-            description: 'Sewa gitar akustik berkualitas tinggi.',
-            image: 'https://source.unsplash.com/300x200/?guitar',
+            description: 'Sewa gitar akustik terbaik untuk suara yang sempurna.',
+            image: '/images/Gitar.png',
         },
         {
             title: 'Drum Set',
-            description: 'Drum set lengkap untuk semua acara.',
-            image: 'https://source.unsplash.com/300x200/?drums',
+            description: 'Drum set lengkap untuk semua kebutuhan musik Anda.',
+            image: '/images/Drum.png',
         },
         {
-            title: 'Keyboard',
-            description: 'Keyboard modern untuk kebutuhan musik Anda.',
-            image: 'https://source.unsplash.com/300x200/?piano',
+            title: 'Piano',
+            description: 'Piano berkualitas untuk pengalaman bermain yang luar biasa.',
+            image: '/images/Piano.png',
         },
         {
-            title: 'Gitar Akustik',
-            description: 'Sewa gitar akustik berkualitas tinggi.',
-            image: 'https://source.unsplash.com/300x200/?guitar',
+            title: 'Biola',
+            description: 'Biola elegan untuk melodi klasik dan modern.',
+            image: '/images/Biola.png',
         },
         {
-            title: 'Drum Set',
-            description: 'Drum set lengkap untuk semua acara.',
-            image: 'https://source.unsplash.com/300x200/?drums',
+            title: 'Saxophone',
+            description: 'Sewa saxophone dengan suara yang memukau.',
+            image: '/images/Saxophone.png',
         },
         {
-            title: 'Keyboard',
-            description: 'Keyboard modern untuk kebutuhan musik Anda.',
-            image: 'https://source.unsplash.com/300x200/?piano',
+            title: 'Kendang',
+            description: 'Kendang tradisional untuk sentuhan budaya Indonesia.',
+            image: '/images/Kendang.png',
+        },
+        {
+            title: 'Angklung',
+            description: 'Angklung asli Indonesia untuk musik tradisional.',
+            image: '/images/Angklung.png',
+        },
+        {
+            title: 'Gong',
+            description: 'Gong megah untuk acara istimewa Anda.',
+            image: '/images/Gong.png',
+        },
+        {
+            title: 'Suling',
+            description: 'Suling bambu indah dengan suara merdu.',
+            image: '/images/Suling.png',
+        },
+        {
+            title: 'Microphone',
+            description: 'Microphone canggih untuk pertunjukan atau rekaman.',
+            image: '/images/Microphone.png',
         },
     ];
 
@@ -52,14 +72,9 @@ export default function LandingPage() {
 
             <section id="services" className="container mx-auto px-4 py-16">
                 <h2 className="mb-8 text-center text-3xl font-bold text-gray-800">Alat Musik Kami</h2>
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                    {instruments.map((item, index) => (
-                        <div key={index} className="rounded-lg border p-4 shadow-lg">
-                            <FontAwesomeIcon icon={item.icon} className="mb-4 text-3xl text-orange-500" />
-                            <CardItem title={item.title} description={item.description} image={item.image} />
-                        </div>
-                    ))}
-                </div>
+
+                {/* Menggunakan Carousel untuk menampilkan CardItem */}
+                <CardItemCarousel cards={instruments} />
             </section>
 
             <Footer />
