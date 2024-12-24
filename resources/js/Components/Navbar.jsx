@@ -17,7 +17,7 @@ export default function Navbar() {
                 {/* Navigation Links */}
                 <ul className="flex flex-1 items-center justify-center space-x-6 text-white">
                     <li>
-                        <a href="#home" className="hover:text-gray-300">
+                        <a href="/" className="hover:text-gray-300">
                             Beranda
                         </a>
                     </li>
@@ -47,7 +47,7 @@ export default function Navbar() {
                         )}
                     </li>
                     <li>
-                        <a href="#about" className="hover:text-gray-300">
+                        <a href="AboutUs" className="hover:text-gray-300">
                             Tentang Kami
                         </a>
                     </li>
