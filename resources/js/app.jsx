@@ -1,9 +1,14 @@
 import '../css/app.css';
 import './bootstrap';
 
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot, hydrateRoot } from 'react-dom/client';
+
+// Font Awesome configuration
+config.autoAddCss = false;
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
