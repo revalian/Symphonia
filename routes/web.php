@@ -17,6 +17,10 @@ Route::get('/', function () {
     return Inertia::render('LandingPage');
 });
 
+Route::get('/AboutUs', function () {
+    return Inertia::render('AboutUs');  // Render halaman AboutUs
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
