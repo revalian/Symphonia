@@ -1,22 +1,19 @@
+import ComboBox from '@/Components/ComboBox';
 import FormActions from '@/Components/DialogsAndActions/FormActions';
 import HeaderSection from '@/Components/DialogsAndActions/HeaderSection';
-import SelectGroup from '@/Components/FormElements/SelectGroup';
+import InputError from '@/Components/InputError';
 import { Card, CardContent } from '@/Components/ui/card';
+import { Label } from '@/Components/ui/label';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { useForm } from '@inertiajs/react';
-import { IconCreditCardPay, IconMusic } from '@tabler/icons-react';
+import { IconCreditCardPay } from '@tabler/icons-react';
 import { toast } from 'sonner';
-import { Label } from '@/Components/ui/label';
-import ComboBox from '@/Components/ComboBox';
-import InputError from '@/Components/InputError';
-
 
 export default function Edit(props) {
-
     const { data, setData, reset, post, processing, errors } = useForm({
         user: props.page_data.loan.user.name ?? null,
-        instrument: props.page_data.loan.instrument.name ??null,
+        instrument: props.page_data.loan.instrument.name ?? null,
         loan_date: props.page_data.date.loan_date,
         due_date: props.page_data.date.due_date,
         _method: props.page_settings.method,
@@ -24,7 +21,7 @@ export default function Edit(props) {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
-        console.log("Data yang dikirim:", data);  
+        console.log('Data yang dikirim:', data);
         post(props.page_settings.action, {
             preserveScroll: true,
             preserveState: true,
@@ -55,7 +52,7 @@ export default function Edit(props) {
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="user">Nama</Label>
                             <ComboBox
-                                items ={props.page_data.users}
+                                items={props.page_data.users}
                                 selectedItem={data.user}
                                 onSelect={(currentValue) => setData('user', currentValue)}
                             />
@@ -64,7 +61,7 @@ export default function Edit(props) {
                         <div className="grid w-full items-center gap-1.5">
                             <Label htmlFor="instrument">Alat Musik</Label>
                             <ComboBox
-                                items ={props.page_data.instruments}
+                                items={props.page_data.instruments}
                                 selectedItem={data.instrument}
                                 onSelect={(currentValue) => setData('instrument', currentValue)}
                             />

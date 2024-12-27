@@ -1,13 +1,13 @@
-import LoanTable from '@/Components/Tables/LoanTable';
 import Filter from '@/Components/FiltersAndPagination/Filter';
 import Pagination from '@/Components/FiltersAndPagination/Pagination';
 import HeaderTitle from '@/Components/HeaderTitle';
+import LoanTable from '@/Components/Tables/LoanTable';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
 import { useFilter } from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link } from '@inertiajs/react';
-import {  IconCreditCardPay, IconPlus } from '@tabler/icons-react';
+import { IconCreditCardPay, IconPlus } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
@@ -52,7 +52,7 @@ export default function Index(props) {
                     <LoanTable loans={loans} meta={meta} onSortable={onSortable} />
                 </CardContent>
                 <CardFooter>
-                    <Pagination meta={meta} name="Peminjaman"/>
+                    <Pagination meta={meta} name="Peminjaman" />
                 </CardFooter>
             </Card>
         </div>

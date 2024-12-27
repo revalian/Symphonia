@@ -1,0 +1,187 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Dokumentasi API",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "API Symphonia"
+        }
+    ],
+    "paths": {
+        "/category": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Category List",
+                "description": "Mengambil Data List Kategori",
+                "operationId": "91fc23f78e8b18b8cd5d4650eddea6ae",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": true,
+                                    "message": "Success",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "name": "Alat Musik Gesek",
+                                            "slug": "alat-musik-gesekWdE0",
+                                            "description": "gesek",
+                                            "cover": null,
+                                            "created_at": "2024-12-10T09:34:20.000000Z",
+                                            "updated_at": "2024-12-20T11:25:36.000000Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/category/{id}": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Category Detail",
+                "description": "Mengambil Data Detail Kategori",
+                "operationId": "8be1002d3aa8403847ce07390f386f63",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the category",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": true,
+                                    "message": "Success",
+                                    "data": {
+                                        "list": {
+                                            "id": 1,
+                                            "name": "Alat Musik Gesek",
+                                            "slug": "alat-musik-gesekWdE0",
+                                            "description": "gesek",
+                                            "cover": null,
+                                            "created_at": "2024-12-10T09:34:20.000000Z",
+                                            "updated_at": "2024-12-20T11:25:36.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/instrument": {
+            "get": {
+                "tags": [
+                    "Instrument"
+                ],
+                "summary": "Instrument List",
+                "description": "Mengambil Data List Instrumen",
+                "operationId": "c7d286e187df3bac8e43f77ebd7b4af1",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": true,
+                                    "message": "Success",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "name": "Gitar",
+                                            "slug": "gitar-Rt5g3",
+                                            "description": "Instrumen musik petik",
+                                            "cover": null,
+                                            "created_at": "2024-12-10T09:34:20.000000Z",
+                                            "updated_at": "2024-12-20T11:25:36.000000Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/instrument/{id}": {
+            "get": {
+                "tags": [
+                    "Instrument"
+                ],
+                "summary": "Instrument Detail",
+                "description": "Mengambil Data Detail Instrumen",
+                "operationId": "0c2f40a64b5326c7d37fe4c36822e4fb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the instrument",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": true,
+                                    "message": "Success",
+                                    "data": {
+                                        "list": {
+                                            "id": 1,
+                                            "name": "Gitar",
+                                            "slug": "gitar-Rt5g3",
+                                            "description": "Instrumen musik petik",
+                                            "cover": null,
+                                            "created_at": "2024-12-10T09:34:20.000000Z",
+                                            "updated_at": "2024-12-20T11:25:36.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Category",
+            "description": "Category"
+        },
+        {
+            "name": "Instrument",
+            "description": "Instrument"
+        }
+    ]
+}

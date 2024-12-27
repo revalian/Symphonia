@@ -117,14 +117,14 @@ class Instrument extends Model
         return $this->updateStock('loan', 'lost');
     }
 
-    public function stock_damage()
+    public function stock_damaged()
     {
         return $this->updateStock('loan', 'damaged');
     }
 
     public function stock_loan_return()
     {
-        return $this->updateStock('loan','availabe');
+        return $this->updateStock('loan','available');
     }
     
 }

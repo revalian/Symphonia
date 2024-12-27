@@ -1,17 +1,15 @@
 import Filter from '@/Components/FiltersAndPagination/Filter';
 import Pagination from '@/Components/FiltersAndPagination/Pagination';
 import HeaderTitle from '@/Components/HeaderTitle';
-import UserTable from '@/Components/Tables/UserTable';
-import { Button } from '@/Components/ui/button';
+import ReturnInstrumentTable from '@/Components/Tables/ReturnInstrumentTable';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
 import { useFilter } from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
-import { Link } from '@inertiajs/react';
-import { IconPlus, IconUsersGroup } from '@tabler/icons-react';
+import { IconCreditCardRefund } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
-    const { data: users, meta } = props.users;
+    const { data: return_instruments, meta } = props.return_instruments;
     const [params, setParams] = useState(props.state);
 
     const onSortable = (field) => {
@@ -23,9 +21,9 @@ export default function Index(props) {
     };
 
     useFilter({
-        route: route('admin.users.index'),
+        route: route('admin.return-instruments.index'),
         Values: params,
-        only: ['users'],
+        only: ['return_instruments'],
     });
 
     return (
@@ -34,27 +32,23 @@ export default function Index(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconUsersGroup}
+                    icon={IconCreditCardRefund}
                 />
-
-                <Button variant="orange" size="lg" asChild>
-                    <Link href={route('admin.users.create')}>
-                        <IconPlus className="size-4" />
-                        Tambah
-                    </Link>
-                </Button>
             </div>
 
             <Card>
                 <CardHeader>
                     <Filter params={params} setParams={setParams} state={props.state} />
                 </CardHeader>
-
-                <CardContent className="px-0 py-0 [&-td]:whitespace-nowrap [&_td]:px-6 [&_th]:px-6">
-                    <UserTable users={users} meta={meta} onSortable={onSortable} />
+                <CardContent className="px-0 py-0">
+                    <ReturnInstrumentTable
+                        return_instruments={return_instruments}
+                        meta={meta}
+                        onSortable={onSortable}
+                    />
                 </CardContent>
                 <CardFooter>
-                    <Pagination meta={meta} name="Users" />
+                    <Pagination meta={meta} name="Pengembalian" />
                 </CardFooter>
             </Card>
         </div>

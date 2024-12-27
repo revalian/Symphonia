@@ -1,9 +1,31 @@
 import { faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Navbar() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    // Fetch data from the API
+    const fetchCategories = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/api/category');
+
+            if (response.data.status) {
+                setCategories(response.data.data); // Assuming the API returns an array
+            }
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchCategories();
+    }, []); // Empty dependency array to run only once on component mount
 
     return (
         <nav className="sticky top-0 z-50 bg-orange-500 shadow-md">
@@ -31,18 +53,14 @@ export default function Navbar() {
                         </button>
                         {dropdownOpen && (
                             <div className="absolute left-0 mt-2 w-40 space-y-2 rounded-md bg-white text-black shadow-lg">
-                                <a
-                                    href="#tradisional"
-                                    className="block transform rounded-md bg-white px-6 py-3 text-center text-black transition duration-300 hover:scale-105 hover:bg-orange-500 hover:text-white"
-                                >
-                                    Tradisional
-                                </a>
-                                <a
-                                    href="#modern"
-                                    className="block transform rounded-md bg-white px-6 py-3 text-center text-black transition duration-300 hover:scale-105 hover:bg-orange-500 hover:text-white"
-                                >
-                                    Modern
-                                </a>
+                                {categories.map((item) => (
+                                    <a
+                                        href="#tradisional"
+                                        className="block transform rounded-md bg-white px-6 py-3 text-center text-black transition duration-300 hover:scale-105 hover:bg-orange-500 hover:text-white"
+                                    >
+                                        {item.name}
+                                    </a>
+                                ))}
                             </div>
                         )}
                     </li>

@@ -1,12 +1,9 @@
-import AlertDialogComponent from '@/Components/DialogsAndActions/AlertDialogComponent';
 import { Button } from '@/Components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
-import { flashMessage } from '@/lib/utils';
-import { Link, router } from '@inertiajs/react';
-import { IconArrowsDownUp, IconCreditCardRefund, IconPencil } from '@tabler/icons-react';
-import { toast } from 'sonner';
+import { formatToRupiah } from '@/lib/utils';
+import { IconArrowsDownUp } from '@tabler/icons-react';
 
-export default function LoanTable({ loans, meta, onSortable }) {
+export default function ReturnInstrumentTable({ return_instruments, meta, onSortable }) {
     return (
         <Table className="w-full">
             <TableHeader>
@@ -14,6 +11,18 @@ export default function LoanTable({ loans, meta, onSortable }) {
                     <TableHead>
                         <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('id')}>
                             #
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>
+                        <Button
+                            variant="ghost"
+                            className="group inline-flex"
+                            onClick={() => onSortable('return_instrument_code')}
+                        >
+                            Kode Pengembalian
                             <span className="ml-2 flex-none rounded text-muted-foreground">
                                 <IconArrowsDownUp className="size-4 text-muted-foreground" />
                             </span>
@@ -48,6 +57,14 @@ export default function LoanTable({ loans, meta, onSortable }) {
                         </Button>
                     </TableHead>
                     <TableHead>
+                        <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('status')}>
+                            Status
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>
                         <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('loan_date')}>
                             Tanggal Peminjaman
                             <span className="ml-2 flex-none rounded text-muted-foreground">
@@ -64,6 +81,16 @@ export default function LoanTable({ loans, meta, onSortable }) {
                         </Button>
                     </TableHead>
                     <TableHead>
+                        <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('return_date')}>
+                            Tanggal Pengembalian
+                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                <IconArrowsDownUp className="size-4 text-muted-foreground" />
+                            </span>
+                        </Button>
+                    </TableHead>
+                    <TableHead>Denda</TableHead>
+                    <TableHead>Kondisi</TableHead>
+                    <TableHead>
                         <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('created_at')}>
                             Dibuat pada
                             <span className="ml-2 flex-none rounded text-muted-foreground">
@@ -75,45 +102,27 @@ export default function LoanTable({ loans, meta, onSortable }) {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {loans.map((loan, index) => (
-                    <TableRow key={index}>
-                        <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
-                        <TableCell>{loan.loan_code}</TableCell>
-                        <TableCell>{loan.user.name}</TableCell>
-                        <TableCell>{loan.instrument.name}</TableCell>
-                        <TableCell>{loan.loan_date}</TableCell>
-                        <TableCell>{loan.due_date}</TableCell>
-                        <TableCell>{loan.created_at}</TableCell>
-                        <TableCell>
-                            <div className="flex items-center gap-x-1">
-                                {!loan.has_return_instrument && (
-                                    <Button variant="purple" size="sm" asChild>
-                                        <Link href={route('admin.return-instruments.create', [loan])}>
-                                            <IconCreditCardRefund className="size-4" />
-                                        </Link>
-                                    </Button>
-                                )}
-                                <Button variant="blue" size="sm" asChild>
-                                    <Link href={route('admin.loans.edit', [loan])}>
-                                        <IconPencil className="size-4" />
-                                    </Link>
-                                </Button>
-                                <AlertDialogComponent
-                                    data={() => {
-                                        router.delete(route('admin.loans.destroy', [loan]), {
-                                            preserveScroll: true,
-                                            preserveState: true,
-                                            onSuccess: (success) => {
-                                                const flash = flashMessage(success);
-                                                if (flash) toast[flash.type](flash.message);
-                                            },
-                                        });
-                                    }}
-                                />
-                            </div>
-                        </TableCell>
-                    </TableRow>
-                ))}
+                {return_instruments.map((return_instrument, index) => {
+                    console.log(return_instrument.return_instrument_check); // Tambahkan log di sini
+
+                    return (
+                        <TableRow key={index}>
+                            <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
+                            <TableCell>{return_instrument.return_instrument_code}</TableCell>
+                            <TableCell>{return_instrument.loan.loan_code}</TableCell>
+                            <TableCell>{return_instrument.user.name}</TableCell>
+                            <TableCell>{return_instrument.instrument.name}</TableCell>
+                            <TableCell>{return_instrument.status}</TableCell>
+                            <TableCell>{return_instrument.loan.loan_date}</TableCell>
+                            <TableCell>{return_instrument.loan.due_date}</TableCell>
+                            <TableCell>{return_instrument.return_date}</TableCell>
+                            <TableCell className="text-red-500">{formatToRupiah(return_instrument.fine)}</TableCell>
+                            <TableCell>{return_instrument.return_instrument_check}</TableCell>
+                            <TableCell>{return_instrument.created_at}</TableCell>
+                            <TableCell>-</TableCell>
+                        </TableRow>
+                    );
+                })}
             </TableBody>
         </Table>
     );

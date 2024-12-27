@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\FineSettingController;
 use App\Http\Controllers\Admin\InstrumentController;
 use App\Http\Controllers\Admin\LoanController;
+use App\Http\Controllers\Admin\ReturnInstrumentController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -88,5 +89,16 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::put('loans/edit/{loan}', 'update')->name('admin.loans.update');
 
         Route::delete('loans/destroy/{loan}', 'destroy')->name('admin.loans.destroy');
+    });
+
+    Route::controller(ReturnInstrumentController::class)->group(function () {
+        Route::get('return-instruments', 'index')->name('admin.return-instruments.index');
+
+        Route::get('return-instruments/{loan:loan_code}/create', 'create')->name('admin.return-instruments.create');
+
+        Route::put('return-instruments/{loan:loan_code}/create', 'store')->name('admin.return-instruments.store');
+
+        Route::put('return-instruments/{returnInstrument:return_instrument_code}/approve', 'approve')->name('admin.return-instruments.approve');
+
     });
 });

@@ -1,61 +1,37 @@
 import CardItemCarousel from '@/Components/CardItem'; // Mengimpor Carousel
 import Footer from '@/Components/Footer';
 import Navbar from '@/Components/Navbar';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 export default function LandingPage() {
-    // Data instruments yang akan digunakan dalam carousel
-    const instruments = [
-        {
-            title: 'Gitar Akustik',
-            description: 'Sewa gitar akustik terbaik untuk suara yang sempurna.',
-            image: '/images/Gitar.png',
-        },
-        {
-            title: 'Drum Set',
-            description: 'Drum set lengkap untuk semua kebutuhan musik Anda.',
-            image: '/images/Drum.png',
-        },
-        {
-            title: 'Piano',
-            description: 'Piano berkualitas untuk pengalaman bermain yang luar biasa.',
-            image: '/images/Piano.png',
-        },
-        {
-            title: 'Biola',
-            description: 'Biola elegan untuk melodi klasik dan modern.',
-            image: '/images/Biola.png',
-        },
-        {
-            title: 'Saxophone',
-            description: 'Sewa saxophone dengan suara yang memukau.',
-            image: '/images/Saxophone.png',
-        },
-        {
-            title: 'Kendang',
-            description: 'Kendang tradisional untuk sentuhan budaya Indonesia.',
-            image: '/images/Kendang.png',
-        },
-        {
-            title: 'Angklung',
-            description: 'Angklung asli Indonesia untuk musik tradisional.',
-            image: '/images/Angklung.png',
-        },
-        {
-            title: 'Gong',
-            description: 'Gong megah untuk acara istimewa Anda.',
-            image: '/images/Gong.png',
-        },
-        {
-            title: 'Suling',
-            description: 'Suling bambu indah dengan suara merdu.',
-            image: '/images/Suling.png',
-        },
-        {
-            title: 'Microphone',
-            description: 'Microphone canggih untuk pertunjukan atau rekaman.',
-            image: '/images/Microphone.png',
-        },
-    ];
+    // State untuk menyimpan data instruments
+    const [instruments, setInstruments] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    // Fungsi untuk mengambil data instruments dari API
+    const fetchInstruments = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/api/instrument');
+
+            if (response.data.status) {
+                const instrumentData = response.data.data.map((instrument) => ({
+                    title: instrument.name,
+                    description: instrument.description,
+                    image: `http://localhost:8000/storage/${instrument.image}`,
+                }));
+                setInstruments(instrumentData);
+            }
+        } catch (error) {
+            console.error('Error fetching instruments:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchInstruments();
+    }, []);
 
     return (
         <>
@@ -73,8 +49,12 @@ export default function LandingPage() {
             <section id="services" className="container mx-auto px-4 py-16">
                 <h2 className="mb-8 text-center text-3xl font-bold text-gray-800">Alat Musik Kami</h2>
 
-                {/* Menggunakan Carousel untuk menampilkan CardItem */}
-                <CardItemCarousel cards={instruments} />
+                {/* Menampilkan Carousel jika data sudah ada */}
+                {!loading && instruments.length > 0 ? (
+                    <CardItemCarousel cards={instruments} />
+                ) : (
+                    <p className="text-center">Loading instruments...</p>
+                )}
             </section>
 
             <Footer />

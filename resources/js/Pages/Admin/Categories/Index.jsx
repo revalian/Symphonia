@@ -1,7 +1,7 @@
-import CategoryTable from '@/Components/Tables/CategoryTable';
 import Filter from '@/Components/FiltersAndPagination/Filter';
 import Pagination from '@/Components/FiltersAndPagination/Pagination';
 import HeaderTitle from '@/Components/HeaderTitle';
+import CategoryTable from '@/Components/Tables/CategoryTable';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
 import { useFilter } from '@/hooks/useFilter';

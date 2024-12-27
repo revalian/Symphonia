@@ -90,7 +90,12 @@ export default function SidebarResponsive({ url, auth }) {
                     title="Pengguna"
                     icon={IconCreditCard}
                 />
-                <NavLinkResponsive url="#" title="pengembalian" icon={IconCreditCardRefund} />
+                <NavLinkResponsive
+                    url={route('admin.return-instruments.index')}
+                    active={url.startsWith('/admin/return-instruments')}
+                    title="pengembalian"
+                    icon={IconCreditCardRefund}
+                />
 
                 <div className="text-foregorund px-3 py-2 text-sm font-semibold">Lainnya</div>
                 <NavLinkResponsive url="#" title="Pengumuman" icon={IconAlertCircle} />

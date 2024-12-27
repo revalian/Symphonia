@@ -11,7 +11,7 @@ class ReturnInstrumentCheck extends Model
 {
     protected $fillable = [
         'return_instrument_id',
-        'codition',
+        'condition',
         'notes',
     ];
 
