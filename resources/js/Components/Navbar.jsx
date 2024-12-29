@@ -32,13 +32,13 @@ export default function Navbar() {
                         {dropdownOpen && (
                             <div className="absolute left-0 mt-2 w-40 space-y-2 rounded-md bg-white text-black shadow-lg">
                                 <a
-                                    href="#tradisional"
+                                    href="/tradisional"
                                     className="block transform rounded-md bg-white px-6 py-3 text-center text-black transition duration-300 hover:scale-105 hover:bg-orange-500 hover:text-white"
                                 >
                                     Tradisional
                                 </a>
                                 <a
-                                    href="#modern"
+                                    href="/modern"
                                     className="block transform rounded-md bg-white px-6 py-3 text-center text-black transition duration-300 hover:scale-105 hover:bg-orange-500 hover:text-white"
                                 >
                                     Modern
@@ -49,11 +49,6 @@ export default function Navbar() {
                     <li>
                         <a href="AboutUs" className="hover:text-gray-300">
                             Tentang Kami
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#contact" className="hover:text-gray-300">
-                            Kontak
                         </a>
                     </li>
                 </ul>
@@ -74,6 +69,8 @@ export default function Navbar() {
                     {/* Cart Button */}
                     <button className="relative flex items-center justify-center rounded-md bg-white px-4 py-2 text-orange-500 hover:bg-gray-200">
                         <FontAwesomeIcon icon={faShoppingCart} className="mr-2 h-5 w-5" />
+                        <a href="Checkout" className="rounded-md bg-white px-4 py-2 text-orange-500 hover:bg-gray-200">
+                    </a>
                         <span>Cart</span>
                         <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
                             0
