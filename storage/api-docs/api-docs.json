@@ -172,6 +172,66 @@
                     }
                 }
             }
+        },
+        "/instrument/search": {
+            "get": {
+                "tags": [
+                    "Instrument"
+                ],
+                "summary": "Search Instruments",
+                "description": "Search instruments by name or description",
+                "operationId": "09e8b1ad7d17f6a0823389939ddb521e",
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Keyword to search for instruments",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Search results",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": true,
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "name": "Gitar",
+                                            "slug": "gitar-Rt5g3",
+                                            "description": "Instrumen musik petik",
+                                            "cover": null,
+                                            "created_at": "2024-12-10T09:34:20.000000Z",
+                                            "updated_at": "2024-12-20T11:25:36.000000Z"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "name": "Piano",
+                                            "slug": "piano-Lv7d2",
+                                            "description": "Instrumen musik tekan",
+                                            "cover": null,
+                                            "created_at": "2024-12-11T10:20:15.000000Z",
+                                            "updated_at": "2024-12-21T12:45:30.000000Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid query parameter"
+                    },
+                    "404": {
+                        "description": "No instruments found"
+                    }
+                }
+            }
         }
     },
     "tags": [

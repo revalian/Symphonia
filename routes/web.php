@@ -6,8 +6,9 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\SocialiteController;
+use Illuminate\Support\Str;
 
-Route::redirect('/','login');
+Route::redirect('/', 'login');
 
 Route::controller(DashboardController::class)->middleware(['auth', 'verified'])->group(function(){
     Route::get('dashboard', 'index')->name('dashboard');
@@ -18,8 +19,25 @@ Route::get('/', function () {
 });
 
 Route::get('/AboutUs', function () {
-    return Inertia::render('AboutUs');  // Render halaman AboutUs
+    return Inertia::render('AboutUs');  
 });
+
+
+
+Route::get('/category/{slug}', function ($slug) {
+    if (Str::startsWith($slug, 'tradisional')) {
+        return Inertia::render('TraditionalInstrumentsPage');
+    } elseif (Str::startsWith($slug, 'modern')) {
+        return Inertia::render('ModernInstruments');
+    }
+    abort(404); // Jika slug tidak sesuai
+})->name('category');
+
+
+Route::get('/checkout', function () {
+    return Inertia::render('Checkout'); 
+})->name('checkout');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -27,11 +45,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get ('/auth/redirect', [SocialiteController::class,'redirect'])->name('auth.redirect');
+Route::get('/auth/redirect', [SocialiteController::class,'redirect'])->name('auth.redirect');
 
 Route::get('/auth/google/callback', [SocialiteController::class,'callback']);
 
-Route::get('testing', fn()=> inertia('Testing'));
 
 require __DIR__.'/auth.php';
 

@@ -91,4 +91,22 @@ class CategoryController extends Controller
 
         return $result;
     }
+
+    public function showBySlug($slug)
+    {
+        $category = Category::where('slug', $slug)->first();
+
+        if ($category) {
+            return response()->json([
+                'status' => true,
+                'data' => $category,
+            ]);
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Category not found',
+        ], 404);
+    }
+
 }
