@@ -1,7 +1,9 @@
 import { Button } from '@/Components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import { formatToRupiah } from '@/lib/utils';
-import { IconArrowsDownUp } from '@tabler/icons-react';
+import { IconArrowsDownUp, IconEye } from '@tabler/icons-react';
+import { Link } from '@inertiajs/react';
+
 
 export default function ReturnInstrumentTable({ return_instruments, meta, onSortable }) {
     return (
@@ -103,8 +105,6 @@ export default function ReturnInstrumentTable({ return_instruments, meta, onSort
             </TableHeader>
             <TableBody>
                 {return_instruments.map((return_instrument, index) => {
-                    console.log(return_instrument.return_instrument_check); // Tambahkan log di sini
-
                     return (
                         <TableRow key={index}>
                             <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
@@ -119,7 +119,17 @@ export default function ReturnInstrumentTable({ return_instruments, meta, onSort
                             <TableCell className="text-red-500">{formatToRupiah(return_instrument.fine)}</TableCell>
                             <TableCell>{return_instrument.return_instrument_check}</TableCell>
                             <TableCell>{return_instrument.created_at}</TableCell>
-                            <TableCell>-</TableCell>
+                            <TableCell>
+                                <div className='flex items-center gap-x-1'>
+                                    {return_instrument.fine && (
+                                        <Button variant="blue" size="sm" asChild>
+                                            <Link href={route('admin.fines.create', [return_instrument])}>
+                                                <IconEye className='size-4'/>
+                                            </Link>
+                                        </Button>
+                                    )}
+                                </div>
+                            </TableCell>
                         </TableRow>
                     );
                 })}

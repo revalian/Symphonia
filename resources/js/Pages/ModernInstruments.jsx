@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '@/Components/Footer';
 import Navbar from '@/Components/Navbar';
+import axios from 'axios';
 
 const ModernInstruments = () => {
-    const [instruments, setInstruments] = useState([]);
+    const [instruments, setInstruments] = useState([]); // Semua instrumen
+    const [filteredInstruments, setFilteredInstruments] = useState([]); // Instrumen yang sudah difilter
     const [loading, setLoading] = useState(true); 
-    const [filteredInstruments, setFilteredInstruments] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [categories, setCategories] = useState([]); // Untuk menyimpan kategori
+    const [validCategoryIds, setValidCategoryIds] = useState([]); // Kategori yang valid
     
     const formatRupiah = (number) => {
     return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
@@ -30,28 +33,44 @@ const ModernInstruments = () => {
     };
     const fetchInstruments = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/instrument');
-            if (response.data.status) {
-                const instrumentData = response.data.data
-                    .filter(instrument => instrument.category_id === 21) 
-                    .map((instrument) => ({
+            const instrumentsResponse = await axios.get('http://localhost:8000/api/instrument');
+            const categoriesResponse = await axios.get('http://localhost:8000/api/category');
+            const categoriesData = categoriesResponse.data.data;  
+            const validCategoryIds = categoriesData
+                .filter(category => category.name === 'Modern') 
+                .map(category => category.id);
+            
+            setCategories(categoriesData); 
+            setValidCategoryIds(validCategoryIds); 
+            if (instrumentsResponse.data.status) {
+                const instrumentData = instrumentsResponse.data.data
+                    .filter(instrument => validCategoryIds.includes(instrument.category_id))
+                    .map(instrument => ({
                         title: instrument.name,
                         description: instrument.description,
                         image: `http://localhost:8000/storage/${instrument.image}`, 
-                        rentalPrice: instrument.rental_price_per_day || 0, 
+                        rentalPrice: instrument.rental_price_per_day || 0,
+                        category_id: instrument.category_id 
                     }));
-                setInstruments(instrumentData);
+                setInstruments(instrumentData);  
             }
         } catch (error) {
-            console.error('Error fetching instruments:', error);
+            console.error('Error fetching data:', error); 
         } finally {
-            setLoading(false);
+            setLoading(false);  
         }
     };
 
-        useEffect(() => {
-        fetchInstruments();
-    }, []);
+    useEffect(() => {
+        fetchInstruments();  
+    }, []); 
+
+    useEffect(() => {
+        if (validCategoryIds.length > 0) {
+            setFilteredInstruments(instruments.filter(instrument => validCategoryIds.includes(instrument.category_id)));
+        }
+    }, [validCategoryIds, instruments]); 
+
 
     if (loading) {
         return (

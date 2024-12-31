@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\FineController;
 use App\Http\Controllers\Admin\FineSettingController;
 use App\Http\Controllers\Admin\InstrumentController;
 use App\Http\Controllers\Admin\LoanController;
@@ -100,5 +101,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
         Route::put('return-instruments/{returnInstrument:return_instrument_code}/approve', 'approve')->name('admin.return-instruments.approve');
 
+    });
+
+    Route::controller(FineController::class)->group(function () {
+        Route::get('fines/{returnInstrument:return_instrument_code}/create', 'create')->name('admin.fines.create'); 
     });
 });
