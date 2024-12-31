@@ -51,9 +51,26 @@ export default function Sidebar({ url, auth }) {
                 title="Pemasok"
                 icon={IconBuildingCommunity}
             />
-            <NavLink url="#" title="Instrument" icon={IconMusic} />
-            <NavLink url="#" title="Pengguna" icon={IconUsersGroup} />
-            <NavLink url="#" title="Pengaturan Denda" icon={IconSettingsExclamation} />
+
+            <NavLink
+                url={route('admin.instruments.index')}
+                active={url.startsWith('/admin/instruments')}
+                title="Instrument"
+                icon={IconMusic}
+            />
+
+            <NavLink
+                url={route('admin.users.index')}
+                active={url.startsWith('/admin/users')}
+                title="Pengguna"
+                icon={IconUsersGroup}
+            />
+            <NavLink
+                url={route('admin.fine-settings.create')}
+                active={url.startsWith('/admin/fine-settings')}
+                title="Pengaturan Denda"
+                icon={IconSettingsExclamation}
+            />
 
             <div className="text-foregorund px-3 py-2 text-sm font-semibold">Peran dan Izin</div>
             <NavLink url="#" title="Peran" icon={IconCircleKey} />
@@ -63,9 +80,18 @@ export default function Sidebar({ url, auth }) {
             <NavLink url="#" title="Akses Rute" icon={IconRoute} />
 
             <div className="text-foregorund px-3 py-2 text-sm font-semibold">Transaksi</div>
-            <NavLink url="#" title="Peminjaman" icon={IconCreditCard} />
-            <NavLink url="#" title="pengembalian" icon={IconCreditCardRefund} />
-
+            <NavLink
+                url={route('admin.loans.index')}
+                active={url.startsWith('/admin/loans')}
+                title="Peminjaman"
+                icon={IconCreditCard}
+            />
+            <NavLink
+                url={route('admin.return-instruments.index')}
+                active={url.startsWith('/admin/return-instruments')}
+                title="Pengembalian"
+                icon={IconCreditCardRefund}
+            />
             <div className="text-foregorund px-3 py-2 text-sm font-semibold">Lainnya</div>
             <NavLink url="#" title="Pengumuman" icon={IconAlertCircle} />
             <NavLink url={route('profile.edit')} title="Profile" icon={IconUser} />

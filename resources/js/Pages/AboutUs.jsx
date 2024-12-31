@@ -1,6 +1,5 @@
-import Navbar from '@/Components/Navbar';  
 import Footer from '@/Components/Footer';
-
+import Navbar from '@/Components/Navbar';
 
 export default function AboutUs() {
     return (
@@ -22,21 +21,22 @@ export default function AboutUs() {
                     {/* Kolom Kiri */}
                     <div className="space-y-6">
                         <p className="text-lg text-gray-700">
-                            Selamat datang di <strong>Symphonia</strong>, penyedia alat musik terpercaya di Indonesia. Kami
-                            hadir untuk memenuhi kebutuhan musik Anda, baik untuk acara, latihan, maupun pertunjukan
-                            profesional.
+                            Selamat datang di <strong>Symphonia</strong>, penyedia alat musik terpercaya di Indonesia.
+                            Kami hadir untuk memenuhi kebutuhan musik Anda, baik untuk acara, latihan, maupun
+                            pertunjukan profesional.
                         </p>
                         <p className="text-lg text-gray-700">
                             Didirikan pada tahun 2024, Symphonia bertujuan untuk menghadirkan pengalaman bermusik yang
-                            menyenangkan dengan menyediakan alat musik berkualitas tinggi, baik modern maupun tradisional.
-                            Kami percaya bahwa musik adalah bahasa universal yang menyatukan semua orang.
+                            menyenangkan dengan menyediakan alat musik berkualitas tinggi, baik modern maupun
+                            tradisional. Kami percaya bahwa musik adalah bahasa universal yang menyatukan semua orang.
                         </p>
 
                         {/* Misi dan Visi */}
                         <div className="space-y-6">
                             <h2 className="text-2xl font-semibold text-gray-800">Misi Kami</h2>
                             <p className="text-lg text-gray-700">
-                                Menyediakan solusi musik terbaik dengan pelayanan yang ramah, profesional, dan terpercaya.
+                                Menyediakan solusi musik terbaik dengan pelayanan yang ramah, profesional, dan
+                                terpercaya.
                             </p>
 
                             <h2 className="text-2xl font-semibold text-gray-800">Visi Kami</h2>

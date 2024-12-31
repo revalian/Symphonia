@@ -116,7 +116,7 @@ class CategoryController extends Controller
             $this->delete_file($category, 'cover');
             $category->delete();
 
-            flashMessage(MessageType::DELETED->message('kategori'));
+            flashMessage(MessageType::DELETED->message('Kategori'));
             return to_route('admin.categories.index');
         } catch (Throwable $e) {
             logger()->error('Error deleting category:', ['exception' => $e]);

@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use App\Enums\ReturnInstrumentCondition;
+use App\Models\ReturnInstrument;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\ReturnInstrumentCondition;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ReturnInstrumentCheck extends Model
 {
     protected $fillable = [
         'return_instrument_id',
-        'codition',
+        'condition',
         'notes',
     ];
 

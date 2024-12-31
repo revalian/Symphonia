@@ -1,104 +1,100 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Footer from '@/Components/Footer';
 import Navbar from '@/Components/Navbar';
 
 const ModernInstruments = () => {
-    const cardData = [
-        {
-            image: '/images/Gitar.png',
-            title: 'Gitar Akustik',
-            description: 'Sewa gitar akustik terbaik untuk suara yang sempurna.',
-            rentalPrice: 'Rp 100.000/hari',
-        },
-        {
-            image: '/images/Drum.png',
-            title: 'Drum Set',
-            description: 'Drum set lengkap untuk semua kebutuhan musik Anda.',
-            rentalPrice: 'Rp 250.000/hari',
-        },
-        {
-            image: '/images/piano.png',
-            title: 'Piano',
-            description: 'Piano berkualitas untuk pengalaman bermain yang luar biasa.',
-            rentalPrice: 'Rp 200.000/hari',
-        },
-        {
-            image: 'images/Biola.png',
-            title: 'Biola',
-            description: 'Biola berkualitas tinggi dengan suara jernih dan halus.',
-            rentalPrice: 'Rp 100.000/hari',
-        },
-        {
-            image: 'images/Saxophone.png',
-            title: 'Saxophone',
-            description: 'Saxophone berkualitas tinggi dengan suara merdu dan ekspresif.',
-            rentalPrice: 'Rp 100.000/hari',
-        },
-        {
-            image: 'images/Microphone.png',
-            title: 'Microphone',
-            description: 'Mikrofon adalah alat yang mengubah suara menjadi sinyal listrik.',
-            rentalPrice: 'Rp 70.000/hari',
-        },
-        {
-            image: 'images/Ukulele.png',
-            title: 'Ukulele',
-            description: 'Alat musik kecil yang populer di Indonesia untuk musik akustik dan folk.',
-            rentalPrice: 'Rp 80.000/hari',
-        },
-        {
-            image: 'images/Percussion.png',
-            title: 'Percussion Pads',
-            description: 'Instrumen elektronik yang populer untuk menciptakan beat modern dalam pertunjukan live.',
-            rentalPrice: 'Rp 150.000/hari',
-        },
-        {
-            image: 'images/Electric.png',
-            title: 'Electric Cello',
-            description: 'Versi modern dari cello yang digunakan dalam genre musik klasik hingga fusion.',
-            rentalPrice: 'Rp 70.000/hari',
-        },
-        {
-            image: 'images/Microphone Wireless.png',
-            title: 'Microphone Wireless',
-            description: 'Sangat penting untuk penyanyi dan musisi Indonesia dalam pertunjukan live.',
-            rentalPrice: 'Rp 90.000/hari',
-        },
-        {
-            image: 'images/Tamborin.png',
-            title: 'Tamborin Modern',
-            description: 'Modifikasi dari alat musik tradisional, digunakan dalam band dan orkestra.',
-            rentalPrice: 'Rp 150.000/hari',
-        },
-        {
-            image: 'images/Mandolin.png',
-            title: 'Mandolin Elektrik',
-            description: 'Digunakan untuk menghasilkan suara folk dan tradisional dalam aransemen modern.',
-            rentalPrice: 'Rp 100.000/hari',
-        },
-        {
-            image: 'images/Sampler.png',
-            title: 'Sampler',
-            description: 'Alat elektronik yang digunakan untuk merekam dan memutar ulang suara, sering digunakan dalam musik EDM dan hip-hop lokal.',
-            rentalPrice: 'Rp 150.000/hari',
-        },
-        {
-            image: 'images/Cajon.png',
-            title: 'Cajon',
-            description: 'Instrumen perkusi berbentuk kotak yang dimainkan dengan menepuk sisi-sisinya, populer dalam pertunjukan akustik.',
-            rentalPrice: 'Rp 100.000/hari',
-        },
-        {
-            image: 'images/Clarinet.png',
-            title: 'Clarinet',
-            description: 'Alat tiup modern yang digunakan dalam musik klasik dan jazz.',
-            rentalPrice: 'Rp 200.000/hari',
-        },
-    ];
+    const [instruments, setInstruments] = useState([]);
+    const [loading, setLoading] = useState(true); 
+    const [filteredInstruments, setFilteredInstruments] = useState([]);
+    const [isSearching, setIsSearching] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    
+    const formatRupiah = (number) => {
+    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
+    };
+
+    const handleSearch = (results, query) => {
+        if (query.trim().length === 0) {
+            setFilteredInstruments([]);
+            setIsSearching(false);
+        } else {
+            const formattedResults = results.map((result) => ({
+                title: result.name,
+                description: result.description,
+                image: `http://localhost:8000/storage/${result.image}`,
+            }));
+            setFilteredInstruments(formattedResults);
+            setSearchQuery(query);
+            setIsSearching(true);
+        }
+    };
+    const fetchInstruments = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/api/instrument');
+            if (response.data.status) {
+                const instrumentData = response.data.data
+                    .filter(instrument => instrument.category_id === 21) 
+                    .map((instrument) => ({
+                        title: instrument.name,
+                        description: instrument.description,
+                        image: `http://localhost:8000/storage/${instrument.image}`, 
+                        rentalPrice: instrument.rental_price_per_day || 0, 
+                    }));
+                setInstruments(instrumentData);
+            }
+        } catch (error) {
+            console.error('Error fetching instruments:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+        useEffect(() => {
+        fetchInstruments();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="text-center py-16">
+                <p>Loading...</p>
+            </div>
+        );
+    }
 
     return (
         <>
-            <Navbar />
+            <Navbar onSearch={handleSearch}/>
+            {isSearching ? (
+                <section className="container mx-auto px-4 py-16">
+                    <h2 className="mb-8 text-center text-3xl font-bold text-gray-800">
+                        Menampilkan hasil pencarian untuk "{searchQuery}"
+                    </h2>
+                    {filteredInstruments.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {filteredInstruments.map((instrument, index) => (
+                            <div key={index} className="bg-white shadow-md rounded-lg p-4">
+                                <a href={`/instrument/${instrument.title}`} className="block">
+                                    <img
+                                        src={instrument.image}
+                                        alt={instrument.title}
+                                        className="w-full h-40 object-cover rounded-md mb-4"
+                                    />
+                                </a>
+                                <h3 className="text-xl font-bold text-gray-800">
+                                    <a href={`/instrument/${instrument.title}`}>{instrument.title}</a>
+                                </h3>
+                                <p className="text-gray-600 mb-4 ">
+                                    <a href={`/instrument/${instrument.title}`}>{instrument.description}</a>
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                    ) : (
+                        <p className="text-center text-gray-600">Tidak ada hasil ditemukan untuk "{searchQuery}".</p>
+                    )}
+                </section>
+            ) : (
+            <>
             <section id="home" className="bg-gray-100 text-center text-gray-800">
             </section>
 
@@ -111,17 +107,19 @@ const ModernInstruments = () => {
                 </h1>
                 <h2 className="mb-8 text-center text-2xl font-bold text-orange-600">"Musikmu, Sewaanmu."</h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {cardData.map((card, index) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {instruments.map((instrument, index) => (
                         <div key={index} className="bg-white shadow-md rounded-lg p-4">
                             <img
-                                src={card.image}
-                                alt={card.title}
+                                src={instrument.image}
+                                alt={instrument.title}
                                 className="w-full h-40 object-cover rounded-md mb-4"
                             />
-                            <h3 className="text-xl font-bold text-gray-800 mb-5">{card.title}</h3>
-                            <p className="text-gray-600 mb-4">{card.description}</p>
-                            <p className="text-orange-600 font-semibold mb-5">{card.rentalPrice}</p>
+                            <h3 className="text-xl font-bold text-gray-800">{instrument.title}</h3>
+                            <p className="text-gray-600 mb-4 line-clamp-2">{instrument.description}</p>
+                            <p className="text-orange-600 font-semibold mb-4">
+                                {formatRupiah(instrument.rentalPrice)}
+                            </p>
                             <button className="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
                                 Sewa Sekarang
                             </button>
@@ -129,7 +127,8 @@ const ModernInstruments = () => {
                     ))}
                 </div>
             </section>
-
+            </>
+            )}
             <Footer />
         </>
     );

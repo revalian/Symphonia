@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Instrument;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Supplier extends Model
 {

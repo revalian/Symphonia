@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\Payment;
+use App\Models\RentalItem;
 use App\Enums\RentalStatus;
 use Illuminate\Database\Eloquent\Model;
 
