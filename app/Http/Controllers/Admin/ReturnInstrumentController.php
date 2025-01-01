@@ -138,13 +138,14 @@ class ReturnInstrumentController extends Controller
             'user_id' => $returnInstrument->user_id,
             'late_fee' => $lateFee,
             'other_fee' => $otherFee,
-            'total_fee' => $lateFee * $otherFee,
+            'total_fee' => $lateFee + $otherFee,
             'fine_date' => Carbon::today(),
         ]);
     }
 
     private function calculateFine(ReturnInstrument $returnInstrument, ReturnInstrumentCheck $returnInstrumentCheck, FineSetting $fineSetting, int $daysLate): ?array
     {
+
         $late_fee = $fineSetting-> late_fee_per_day * $daysLate;
 
         switch($returnInstrumentCheck->condition->value){

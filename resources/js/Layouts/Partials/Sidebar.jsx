@@ -93,7 +93,7 @@ export default function Sidebar({ url, auth }) {
                 icon={IconCreditCardRefund}
             />
             <div className="text-foregorund px-3 py-2 text-sm font-semibold">Lainnya</div>
-            <NavLink url="#" title="Pengumuman" icon={IconAlertCircle} />
+            <NavLink  url={route('admin.announcements.index')} active={url.startsWith('/admin/announcements')} title="Pengumuman" icon={IconAlertCircle} />
             <NavLink url={route('profile.edit')} title="Profile" icon={IconUser} />
             <NavLink
                 url={route('logout')}

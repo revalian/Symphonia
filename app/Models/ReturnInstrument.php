@@ -104,7 +104,7 @@ class ReturnInstrument extends Model
         return Carbon::today()->lessThanOrEqualTo(Carbon::parse($this->loan->due_date));
     }
 
-    public function getDayLate(): int
+    public function getDaysLate(): int
     {
         return max(0, Carbon::parse($this->loan->load_date)->diffInDays(Carbon::parse($this->return_date)));
     }

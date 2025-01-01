@@ -102,13 +102,16 @@ export default function Navbar({ onSearch }) { // Tambahkan props 'onSearch'
         </button>
     </div>
 
-    <button className="relative flex items-center justify-center rounded-md bg-white px-4 py-2 text-orange-500 hover:bg-gray-200">
+    <a
+    href="/checkout"
+    className="relative flex items-center justify-center rounded-md bg-white px-4 py-2 text-orange-500 hover:bg-gray-200"
+    >
         <FontAwesomeIcon icon={faShoppingCart} className="mr-2 h-5 w-5" />
         <span>Cart</span>
         <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
             0
         </span>
-    </button>
+    </a>
 
     {user ? (
         // Jika user sudah login
