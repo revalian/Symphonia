@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\FineController;
 use App\Http\Controllers\Admin\FineSettingController;
@@ -72,10 +73,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::delete('users/destroy/{user}', 'destroy')->name('admin.users.destroy');
     });
 
-    Route::controller(FineSettingController::class)->group(function(){
+    Route::controller(FineSettingController::class)->group(function () {
         Route::get('fine-settings/create', 'create')->name('admin.fine-settings.create');
         Route::put('fine-settings/create', 'store')->name('admin.fine-settings.store');
-
     });
 
     Route::controller(LoanController::class)->group(function () {
@@ -100,10 +100,23 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::put('return-instruments/{loan:loan_code}/create', 'store')->name('admin.return-instruments.store');
 
         Route::put('return-instruments/{returnInstrument:return_instrument_code}/approve', 'approve')->name('admin.return-instruments.approve');
-
     });
 
     Route::controller(FineController::class)->group(function () {
-        Route::get('fines/{returnInstrument:return_instrument_code}/create', 'create')->name('admin.fines.create'); 
+        Route::get('fines/{returnInstrument:return_instrument_code}/create', 'create')->name('admin.fines.create');
+    });
+
+    Route::controller(AnnouncementController::class)->group(function () {
+        Route::get('announcements', 'index')->name('admin.announcements.index');
+
+        Route::get('announcements/create', 'create')->name('admin.announcements.create');
+
+        Route::post('announcements.create', 'store')->name('admin.announcements.store');
+
+        Route::get('announcements/edit/{announcement}', 'edit')->name('admin.announcements.edit');
+
+        Route::put('announcements/edit/{announcement}', 'update')->name('admin.announcements.update');
+
+        Route::delete('announcements/destroy/{announcement}', 'destroy')->name('admin.announcements.destroy');
     });
 });
