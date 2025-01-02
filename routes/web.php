@@ -34,9 +34,17 @@ Route::get('/category/{slug}', function ($slug) {
 })->name('category');
 
 
-Route::get('/checkout', function () {
-    return Inertia::render('Checkout'); 
-})->name('checkout');
+Route::get('/Cart', function () {
+    return Inertia::render('Cart'); 
+})->name('Cart');
+
+Route::get('/payment', function () {
+    return Inertia::render('Payment');
+})->name('payment');
+
+Route::get('/produkctdetails', function () {
+    return Inertia::render('produkctdetails');
+})->name('produkctdetails');
 
 
 Route::middleware('auth')->group(function () {
