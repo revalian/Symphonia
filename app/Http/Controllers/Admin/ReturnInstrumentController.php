@@ -79,6 +79,16 @@ class ReturnInstrumentController extends Controller
         ]);
     }
 
+    public function report(): Response
+{
+    return inertia('Admin/ReturnInstruments/ReportPdf', [
+        'page_settings' => [
+            'title' => 'Laporan Pengembalian',
+            'subtitle' => 'Laporan PDF semua data pengembalian.',
+        ],
+    ]);
+}
+
     public function store(Loan $loan, ReturnInstrumentRequest $request): RedirectResponse
     {   
         try{

@@ -126,5 +126,25 @@ class Instrument extends Model
     {
         return $this->updateStock('loan','available');
     }
+
+    public static function leastLoanInstruments($limit = 5) 
+    {
+        return self::query()
+        ->select(['id', 'name', 'brand'])
+        ->withCount('loans')
+        ->orderBy('loans_count')
+        ->limit($limit)
+        ->get();
+    }
+
+    public static function mostLoanInstruments($limit = 5)
+    {
+        return self::query()
+        ->select(['id', 'name', 'brand'])
+        ->withCount('loans')
+        ->orderByDesc('loans_count')
+        ->limit($limit)
+        ->get();
+    }
     
 }

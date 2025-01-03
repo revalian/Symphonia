@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\FineController;
 use App\Http\Controllers\Admin\FineSettingController;
 use App\Http\Controllers\Admin\InstrumentController;
 use App\Http\Controllers\Admin\LoanController;
+use App\Http\Controllers\Admin\LoanStatisticController;
 use App\Http\Controllers\Admin\ReturnInstrumentController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\UserController;
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
 
+    Route::controller(LoanStatisticController::class)->group(function(){
+        Route::get('loan-statistics', 'index')->name('admin.loan-statistics.index');
+    });
 
     Route::controller(CategoryController::class)->group(function () {
         Route::get('categories', 'index')->name('admin.categories.index');
@@ -100,6 +104,11 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::put('return-instruments/{loan:loan_code}/create', 'store')->name('admin.return-instruments.store');
 
         Route::put('return-instruments/{returnInstrument:return_instrument_code}/approve', 'approve')->name('admin.return-instruments.approve');
+<<<<<<< Updated upstream
+=======
+
+        Route::get('return-instruments/report', 'report')->name('admin.return-instruments.report');
+>>>>>>> Stashed changes
     });
 
     Route::controller(FineController::class)->group(function () {

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\Instrument;
 use App\Models\ReturnInstrument;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -69,5 +70,17 @@ class Loan extends Model
             ->where('instrument_id', $instrument_id)
             ->whereDoesntHave('returnInstrument', fn($query) => $query->where('instrument_id', $instrument_id)->where('user_id', $user_id))
             ->exists();
+    }
+
+    public static function totalLoanInstruments():array
+    {
+        return [
+            'days' => self::whereDate('created_at', Carbon::now()->toDateString())->count(),
+            'weeks' => self::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count(),
+            'months' => self::whereMonth('created_at', Carbon::now()->month)
+                        ->whereYear('created_at', Carbon::now()->year)
+                        ->count(),
+            'years' => self::whereYear('created_at', Carbon::now()->year)->count(),
+        ];
     }
 }
