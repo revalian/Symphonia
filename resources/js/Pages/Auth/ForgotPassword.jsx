@@ -1,5 +1,5 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import InputError from '@/Components/InputError';
+import ApplicationLogo from '@/Components/molecules/ApplicationLogo';
+import InputError from '@/Components/atoms/InputError';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';

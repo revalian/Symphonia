@@ -1,5 +1,5 @@
-import GetFineStatusBadge from '@/Components/GetFineStatusBadge';
-import HeaderTitle from '@/Components/HeaderTitle';
+import GetFineStatusBadge from '@/Components/molecules/GetFineStatusBadge';
+import HeaderTitle from '@/Components/molecules/HeaderTitle';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Label } from '@/Components/ui/label';
 import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';

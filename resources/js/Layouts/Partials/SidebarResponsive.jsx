@@ -20,8 +20,8 @@ import {
     IconVersions,
 } from '@tabler/icons-react';
 
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import NavLinkResponsive from '@/Components/NavLinkResponsive';
+import ApplicationLogo from '@/Components/molecules/ApplicationLogo';
+import NavLinkResponsive from '@/Components/molecules/NavLinkResponsive';
 
 export default function SidebarResponsive({ url, auth }) {
     return (

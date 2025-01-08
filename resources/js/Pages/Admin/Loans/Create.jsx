@@ -1,7 +1,7 @@
-import ComboBox from '@/Components/ComboBox';
-import FormActions from '@/Components/DialogsAndActions/FormActions';
-import HeaderSection from '@/Components/DialogsAndActions/HeaderSection';
-import InputError from '@/Components/InputError';
+import ComboBox from '@/Components/molecules/ComboBox';
+import FormActions from '@/Components/molecules/FormActions';
+import HeaderSection from '@/Components/organisms/HeaderSection';
+import InputError from '@/Components/atoms/InputError';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Label } from '@/Components/ui/label';
 import AppLayout from '@/Layouts/AppLayout';
@@ -64,7 +64,29 @@ export default function Create(props) {
                                 selectedItem={data.instrument}
                                 onSelect={(currentValue) => setData('instrument', currentValue)}
                             />
-                            {errors && <InputError message={errors.user} />}
+                            {errors && <InputError message={errors.instrument} />}
+                        </div>
+                        <div className="grid w-full items-center gap-1.5">
+                            <Label htmlFor="loan_date">Tanggal Pinjam</Label>
+                            <input
+                                type="date"
+                                id="loan_date"
+                                className="input input-bordered w-full"
+                                value={data.loan_date}
+                                onChange={(e) => setData('loan_date', e.target.value)}
+                            />
+                            {errors && <InputError message={errors.loan_date} />}
+                        </div>
+                        <div className="grid w-full items-center gap-1.5">
+                            <Label htmlFor="due_date">Tanggal Jatuh Tempo</Label>
+                            <input
+                                type="date"
+                                id="due_date"
+                                className="input input-bordered w-full"
+                                value={data.due_date}
+                                onChange={(e) => setData('due_date', e.target.value)}
+                            />
+                            {errors && <InputError message={errors.due_date} />}
                         </div>
                         <FormActions onReset={onHandleReset} isProcessing={processing} />
                     </form>

@@ -1,7 +1,7 @@
-import ComboBox from '@/Components/ComboBox';
-import FormActions from '@/Components/DialogsAndActions/FormActions';
-import HeaderSection from '@/Components/DialogsAndActions/HeaderSection';
-import InputError from '@/Components/InputError';
+import ComboBox from '@/Components/molecules/ComboBox';
+import FormActions from '@/Components/molecules/FormActions';
+import HeaderSection from '@/Components/organisms/HeaderSection';
+import InputError from '@/Components/atoms/InputError';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Label } from '@/Components/ui/label';
 import AppLayout from '@/Layouts/AppLayout';

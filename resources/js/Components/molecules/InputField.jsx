@@ -1,4 +1,4 @@
-import InputError from '@/Components/InputError';
+import InputError from '@/Components/atoms/InputError';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 

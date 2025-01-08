@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Footer from '@/Components/Footer';
-import Navbar from '@/Components/Navbar';
+import Footer from '@/Components/organisms/Footer';
+import Navbar from '@/Components/organisms/Navbar';
 import axios from 'axios';
 
 const ModernInstruments = () => {

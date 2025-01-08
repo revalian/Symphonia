@@ -1,6 +1,6 @@
-import Filter from '@/Components/FiltersAndPagination/Filter';
-import Pagination from '@/Components/FiltersAndPagination/Pagination';
-import HeaderTitle from '@/Components/HeaderTitle';
+import Filter from '@/Components/molecules/Filter';
+import Pagination from '@/Components/molecules/Pagination';
+import HeaderTitle from '@/Components/molecules/HeaderTitle';
 import ReturnInstrumentTable from '@/Components/Tables/ReturnInstrumentTable';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
 import { useFilter } from '@/hooks/useFilter';
@@ -8,7 +8,7 @@ import AppLayout from '@/Layouts/AppLayout';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { IconCreditCardRefund } from '@tabler/icons-react';
 import React, { useState, useEffect } from 'react';
-import PdfDownloadButton from '@/Components/Pdf/PdfDownloadButton';
+import PdfDownloadButton from '@/Components/organisms/PdfDownloadButton';
 
 export default function Index(props) {
     const { data: return_instruments, meta } = props.return_instruments;

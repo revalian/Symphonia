@@ -116,7 +116,6 @@ class ReturnInstrumentController extends Controller
             $isOnTime = $return_instrument->isOnTime();
             $daysLate = $return_instrument->getDaysLate();
             $fineData = $this->calculateFine($return_instrument, $return_instrument_check, FineSetting::first(), $daysLate);
-
             DB::commit();
             if($isOnTime) {
                 if($fineData){
@@ -190,7 +189,7 @@ class ReturnInstrumentController extends Controller
                     $this->createFine($returnInstrument, $late_fee, 0);
 
                     return [
-                        'message' => 'Terlambar mengembalikan alat musik dan harus membayar denda keterlambatan',
+                        'message' => 'Terlambat mengembalikan alat musik dan harus membayar denda keterlambatan',
                     ];
                 } else {
                     $returnInstrument->update([

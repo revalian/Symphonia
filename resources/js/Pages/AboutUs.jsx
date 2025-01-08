@@ -1,5 +1,5 @@
-import Footer from '@/Components/Footer';
-import Navbar from '@/Components/Navbar';
+import Footer from '@/Components/organisms/Footer';
+import Navbar from '@/Components/organisms/Navbar';
 
 export default function AboutUs() {
     return (

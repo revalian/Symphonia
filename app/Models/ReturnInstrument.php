@@ -106,6 +106,12 @@ class ReturnInstrument extends Model
 
     public function getDaysLate(): int
     {
-        return max(0, Carbon::parse($this->loan->load_date)->diffInDays(Carbon::parse($this->return_date)));
+        // Pastikan return_date lebih besar dari due_date untuk hitung keterlambatan
+        if (Carbon::parse($this->return_date)->greaterThan(Carbon::parse($this->loan->due_date))) {
+            return Carbon::parse($this->loan->due_date)->diffInDays(Carbon::parse($this->return_date));
+        }
+    
+        return 0; // Tidak ada keterlambatan jika return_date sebelum atau pada due_date
     }
+    
 }

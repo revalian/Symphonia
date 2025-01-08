@@ -1,4 +1,4 @@
-import AlertDialogComponent from '@/Components/DialogsAndActions/AlertDialogComponent';
+import AlertDialogComponent from '@/Components/molecules/AlertDialogComponent';
 import { Button } from '@/Components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import { IconArrowsDownUp, IconPencil, IconTrash } from '@tabler/icons-react';

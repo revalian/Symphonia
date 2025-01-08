@@ -1,5 +1,5 @@
-import CardStat from "@/Components/CardStat"
-import HeaderTitle from "@/Components/HeaderTitle"
+import CardStat from "@/Components/molecules/CardStat"
+import HeaderTitle from "@/Components/molecules/HeaderTitle"
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/Components/ui/table"
 import AppLayout from "@/Layouts/AppLayout"

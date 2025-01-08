@@ -2,7 +2,7 @@ import { faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Dropdown from '@/Components/Dropdown';
+import Dropdown from '@/Components/molecules/Dropdown';
 import { usePage } from '@inertiajs/react';
 
 export default function Navbar({ onSearch }) { // Tambahkan props 'onSearch'

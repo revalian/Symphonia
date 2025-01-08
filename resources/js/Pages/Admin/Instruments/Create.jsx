@@ -1,8 +1,8 @@
-import FormActions from '@/Components/DialogsAndActions/FormActions';
-import HeaderSection from '@/Components/DialogsAndActions/HeaderSection';
-import InputField from '@/Components/FormElements/InputField';
-import SelectGroup from '@/Components/FormElements/SelectGroup';
-import TextareaField from '@/Components/FormElements/TextareaField';
+import FormActions from '@/Components/molecules/FormActions';
+import HeaderSection from '@/Components/organisms/HeaderSection';
+import InputField from '@/Components/molecules/InputField';
+import SelectGroup from '@/Components/molecules/SelectGroup';
+import TextareaField from '@/Components/molecules/TextareaField';
 import { Card, CardContent } from '@/Components/ui/card';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';

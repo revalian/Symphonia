@@ -1,6 +1,6 @@
-import CardItemCarousel from '@/Components/CardItem';
-import Footer from '@/Components/Footer';
-import Navbar from '@/Components/Navbar';
+import CardItemCarousel from '@/Components/organisms/CardItem';
+import Footer from '@/Components/organisms/Footer';
+import Navbar from '@/Components/organisms/Navbar';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 

@@ -1,5 +1,5 @@
 // resources/js/Components/HeaderSection.jsx
-import HeaderTitle from '@/Components/HeaderTitle';
+import HeaderTitle from '@/Components/molecules/HeaderTitle';
 import { Button } from '@/Components/ui/button';
 import { Link } from '@inertiajs/react';
 import { IconArrowLeft } from '@tabler/icons-react';
