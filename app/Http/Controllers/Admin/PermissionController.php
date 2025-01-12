@@ -19,10 +19,10 @@ class PermissionController extends Controller
         $permissions = Permission::query()
             ->select(['id', 'name', 'guard_name', 'created_at'])
             ->when(request()->search, function ($query, $search) {
-                $query->where(function ($subQuery) use ($search) {
-                    $subQuery->orWhere('name', 'REGEXP', $search)
-                        ->orWhere('guard_name', 'REGEXP', $search);
-                });
+                $query->whereAny([
+                    'name',
+                    'guard_name',
+                ], 'REGEXP', $search);
             })
             ->when(request()->field && request()->direction, fn($query) => $query->orderBy(request()->field, request()->direction))
             ->paginate(request()->load ?? 10)
@@ -41,7 +41,7 @@ class PermissionController extends Controller
             'state' => [
                 'page' => request()->page ?? 1,
                 'search' => request()->search ?? '',
-                'load' => request()->load ?? 10,
+                'load' => 10,
             ],
         ]);
     }

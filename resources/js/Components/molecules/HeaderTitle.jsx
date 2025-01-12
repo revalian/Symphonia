@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function HeaderTitle({ title, subtitle, icon: Icon }) {
     return (
         <div className="flex flex-col">
