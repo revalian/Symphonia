@@ -1,17 +1,17 @@
 import Filter from '@/Components/molecules/Filter';
 import Pagination from '@/Components/molecules/Pagination';
 import HeaderTitle from '@/Components/molecules/HeaderTitle';
-import RoleTable from '@/Components/Tables/RoleTable';
+import RouteAccessTable from '@/Components/Tables/RouteAccessTable';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
 import { useFilter } from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link } from '@inertiajs/react';
-import { IconCircleKey, IconPlus } from '@tabler/icons-react';
+import { IconCircleKey, IconPlus, IconRoute } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
-    const { data: roles, meta } = props.roles; // Data roles dan meta
+    const { data: route_accesses, meta } = props.route_accesses; 
     const [params, setParams] = useState(props.state);
 
     // Fungsi untuk mengatur sortable field
@@ -25,9 +25,9 @@ export default function Index(props) {
 
     // Hook untuk mengatur filter
     useFilter({
-        route: route('admin.roles.index'),
+        route: route('admin.route-accesses.index'),
         Values: params,
-        only: ['roles'],
+        only: ['route_accesses'],
     });
 
     return (
@@ -37,10 +37,10 @@ export default function Index(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconCircleKey}
+                    icon={IconRoute}
                 />
                 <Button variant="orange" size="lg" asChild>
-                    <Link href={route('admin.roles.create')}>
+                    <Link href={route('admin.route-accesses.create')}>
                         <IconPlus className="size-4" />
                         Tambah
                     </Link>
@@ -53,10 +53,10 @@ export default function Index(props) {
                     <Filter params={params} setParams={setParams} state={props.state} />
                 </CardHeader>
                 <CardContent className="px-0 py-0">
-                    <RoleTable roles={roles} meta={meta} onSortable={onSortable} />
+                    <RouteAccessTable route_accesses={route_accesses} meta={meta} onSortable={onSortable} />
                 </CardContent>
                 <CardFooter>
-                    <Pagination meta={meta} name="Peran" />
+                    <Pagination meta={meta} name="rute akses" />
                 </CardFooter>
             </Card>
         </div>

@@ -79,9 +79,9 @@ export default function SidebarResponsive({ url, auth }) {
                 <div className="text-foregorund px-3 py-2 text-sm font-semibold">Peran dan Izin</div>
                 <NavLinkResponsive url={route('admin.roles.index')} active={url.startsWith('/admin/roles')} title="Peran" icon={IconCircleKey} />
                 <NavLinkResponsive url={route('admin.permissions.index')} active={url.startsWith('/admin/permissions')}  title="Izin" icon={IconVersions} />
-                <NavLinkResponsive url="#" title="Tetapkan Izin" icon={IconKeyframe} />
-                <NavLinkResponsive url="#" title="Tetapkan Peran" icon={IconLayoutKanban} />
-                <NavLinkResponsive url="#" title="Akses Rute" icon={IconRoute} />
+                <NavLinkResponsive url={route('admin.assign-permissions.index')} active={url.startsWith('/admin/assign-permissions')} title="Tetapkan Izin" icon={IconKeyframe} />
+                <NavLinkResponsive url={route('admin.assign-users.index')} active={url.startsWith('/admin/assign-users')} title="Tetapkan Peran" icon={IconLayoutKanban} />
+                <NavLinkResponsive url={route('admin.route-accesses.index')} active={url.startsWith('/admin/route-accesses')} title="Akses Rute" icon={IconRoute} />
 
                 <div className="text-foregorund px-3 py-2 text-sm font-semibold">Transaksi</div>
                 <NavLinkResponsive
@@ -92,7 +92,7 @@ export default function SidebarResponsive({ url, auth }) {
                 />
                 <NavLinkResponsive
                     url={route('admin.return-instruments.index')}
-                    active={url.startsWith('/admin/return-instruments')}
+                    active={url.startsWith('/admin/return-instruments')} 
                     title="pengembalian"
                     icon={IconCreditCardRefund}
                 />

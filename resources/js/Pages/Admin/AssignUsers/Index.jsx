@@ -1,20 +1,17 @@
 import Filter from '@/Components/molecules/Filter';
 import Pagination from '@/Components/molecules/Pagination';
 import HeaderTitle from '@/Components/molecules/HeaderTitle';
-import RoleTable from '@/Components/Tables/RoleTable';
-import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
 import { useFilter } from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
-import { Link } from '@inertiajs/react';
-import { IconCircleKey, IconPlus } from '@tabler/icons-react';
+import { IconLayoutKanban } from '@tabler/icons-react';
 import { useState } from 'react';
+import AssignUserTable from '@/Components/Tables/AssignUserTable';
 
 export default function Index(props) {
-    const { data: roles, meta } = props.roles; // Data roles dan meta
+    const { data: users, meta } = props.users;
     const [params, setParams] = useState(props.state);
 
-    // Fungsi untuk mengatur sortable field
     const onSortable = (field) => {
         setParams({
             ...params,
@@ -23,45 +20,41 @@ export default function Index(props) {
         });
     };
 
-    // Hook untuk mengatur filter
     useFilter({
-        route: route('admin.roles.index'),
+        route: route('admin.assign-users.index'),
         Values: params,
-        only: ['roles'],
+        only: ['users'],
     });
 
     return (
         <div className="flex w-full flex-col pb-32">
-            {/* Header */}
             <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconCircleKey}
+                    icon={IconLayoutKanban}
                 />
-                <Button variant="orange" size="lg" asChild>
-                    <Link href={route('admin.roles.create')}>
-                        <IconPlus className="size-4" />
-                        Tambah
-                    </Link>
-                </Button>
             </div>
 
-            {/* Card untuk Roles */}
             <Card>
                 <CardHeader>
-                    <Filter params={params} setParams={setParams} state={props.state} />
+                    <div className="flex flex-wrap items-center gap-2">
+                        <Filter params={params} setParams={setParams} state={props.state} />
+                    </div>
                 </CardHeader>
-                <CardContent className="px-0 py-0">
-                    <RoleTable roles={roles} meta={meta} onSortable={onSortable} />
+                <CardContent>
+                    <AssignUserTable
+                        users={users}
+                        meta={meta}
+                        onSortable={onSortable}
+                    />
                 </CardContent>
                 <CardFooter>
-                    <Pagination meta={meta} name="Peran" />
+                    <Pagination meta={meta} name="tetapkan peran" />
                 </CardFooter>
             </Card>
         </div>
     );
 }
 
-// Layout dengan AppLayout
 Index.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />;

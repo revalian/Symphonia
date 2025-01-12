@@ -19,10 +19,10 @@ class RoleController extends Controller
         $roles = Role::query()
             ->select(['id', 'name', 'guard_name', 'created_at'])
             ->when(request()->search, function ($query, $search) {
-                $query->where(function ($query) use ($search) {
-                    $query->orWhere('name', 'REGEXP', $search)
-                        ->orWhere('guard_name', 'REGEXP', $search);
-                });
+                $query->whereAny([
+                    'name',
+                    'guard_name',
+                ], 'REGEXP', $search); // Perbaikan di sini, menambahkan koma yang hilang
             })
             ->when(request()->field && request()->direction, fn($query) => $query->orderBy(request()->field, request()->direction))
             ->paginate(request()->load ?? 10)
