@@ -20,7 +20,7 @@ import {
     IconVersions,
 } from '@tabler/icons-react';
 
-import NavLink from '@/Components/NavLink';
+import NavLink from '@/Components/molecules/NavLink';
 
 export default function Sidebar({ url, auth }) {
     return (
@@ -34,7 +34,7 @@ export default function Sidebar({ url, auth }) {
             />
 
             <div className="text-foregorund px-3 py-2 text-sm font-semibold">Statistik</div>
-            <NavLink url="#" title="Statistik Peminjaman" icon={IconChartDots2} />
+            <NavLink url={route('admin.loan-statistics.index')} active={url.startsWith('/admin/loan-statistics')} title="Statistik Peminjaman" icon={IconChartDots2}/>
             <NavLink url="#" title="Laporan Denda" icon={IconMoneybag} />
             <NavLink url="#" title="Laporan Stok Alat Musik" icon={IconPiano} />
 
@@ -73,8 +73,8 @@ export default function Sidebar({ url, auth }) {
             />
 
             <div className="text-foregorund px-3 py-2 text-sm font-semibold">Peran dan Izin</div>
-            <NavLink url="#" title="Peran" icon={IconCircleKey} />
-            <NavLink url="#" title="Izin" icon={IconVersions} />
+            <NavLink url={route('admin.roles.index')} active={url.startsWith('/admin/roles')} title="Peran" icon={IconCircleKey} />
+            <NavLink url={route('admin.permissions.index')} active={url.startsWith('/admin/permissions')} title="Izin" icon={IconVersions} />
             <NavLink url="#" title="Tetapkan Izin" icon={IconKeyframe} />
             <NavLink url="#" title="Tetapkan Peran" icon={IconLayoutKanban} />
             <NavLink url="#" title="Akses Rute" icon={IconRoute} />

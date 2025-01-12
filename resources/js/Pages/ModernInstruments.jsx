@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import Footer from '@/Components/Footer';
-import Navbar from '@/Components/Navbar';
+import Footer from '@/Components/organisms/Footer';
+import Navbar from '@/Components/organisms/Navbar';
+import { Head } from '@inertiajs/react';
 import axios from 'axios';
 
 const ModernInstruments = () => {
-    const [instruments, setInstruments] = useState([]); // Semua instrumen
-    const [filteredInstruments, setFilteredInstruments] = useState([]); // Instrumen yang sudah difilter
-    const [loading, setLoading] = useState(true); 
+    const [instruments, setInstruments] = useState([]);
+    const [filteredInstruments, setFilteredInstruments] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [isSearching, setIsSearching] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const [categories, setCategories] = useState([]); // Untuk menyimpan kategori
-    const [validCategoryIds, setValidCategoryIds] = useState([]); // Kategori yang valid
-    
+    const [categories, setCategories] = useState([]);
+    const [validCategoryIds, setValidCategoryIds] = useState([]);
+
     const formatRupiah = (number) => {
-    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
+        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
     };
 
     const handleSearch = (results, query) => {
@@ -31,46 +32,47 @@ const ModernInstruments = () => {
             setIsSearching(true);
         }
     };
+
     const fetchInstruments = async () => {
         try {
             const instrumentsResponse = await axios.get('http://localhost:8000/api/instrument');
             const categoriesResponse = await axios.get('http://localhost:8000/api/category');
-            const categoriesData = categoriesResponse.data.data;  
+            const categoriesData = categoriesResponse.data.data;
             const validCategoryIds = categoriesData
-                .filter(category => category.name === 'Modern') 
+                .filter(category => category.name === 'Modern')
                 .map(category => category.id);
-            
-            setCategories(categoriesData); 
-            setValidCategoryIds(validCategoryIds); 
+
+            setCategories(categoriesData);
+            setValidCategoryIds(validCategoryIds);
+
             if (instrumentsResponse.data.status) {
                 const instrumentData = instrumentsResponse.data.data
                     .filter(instrument => validCategoryIds.includes(instrument.category_id))
                     .map(instrument => ({
                         title: instrument.name,
                         description: instrument.description,
-                        image: `http://localhost:8000/storage/${instrument.image}`, 
+                        image: `http://localhost:8000/storage/${instrument.image}`,
                         rentalPrice: instrument.rental_price_per_day || 0,
-                        category_id: instrument.category_id 
+                        category_id: instrument.category_id
                     }));
-                setInstruments(instrumentData);  
+                setInstruments(instrumentData);
             }
         } catch (error) {
-            console.error('Error fetching data:', error); 
+            console.error('Error fetching data:', error);
         } finally {
-            setLoading(false);  
+            setLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchInstruments();  
-    }, []); 
+        fetchInstruments();
+    }, []);
 
     useEffect(() => {
         if (validCategoryIds.length > 0) {
             setFilteredInstruments(instruments.filter(instrument => validCategoryIds.includes(instrument.category_id)));
         }
-    }, [validCategoryIds, instruments]); 
-
+    }, [validCategoryIds, instruments]);
 
     if (loading) {
         return (
@@ -82,7 +84,8 @@ const ModernInstruments = () => {
 
     return (
         <>
-            <Navbar onSearch={handleSearch}/>
+            <Navbar onSearch={handleSearch} />
+            <Head title='Kategori'/>
             {isSearching ? (
                 <section className="container mx-auto px-4 py-16">
                     <h2 className="mb-8 text-center text-3xl font-bold text-gray-800">
@@ -90,63 +93,72 @@ const ModernInstruments = () => {
                     </h2>
                     {filteredInstruments.length > 0 ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {filteredInstruments.map((instrument, index) => (
-                            <div key={index} className="bg-white shadow-md rounded-lg p-4">
-                                <a href={`/instrument/${instrument.title}`} className="block">
-                                    <img
-                                        src={instrument.image}
-                                        alt={instrument.title}
-                                        className="w-full h-40 object-cover rounded-md mb-4"
-                                    />
-                                </a>
-                                <h3 className="text-xl font-bold text-gray-800">
-                                    <a href={`/instrument/${instrument.title}`}>{instrument.title}</a>
-                                </h3>
-                                <p className="text-gray-600 mb-4 ">
-                                    <a href={`/instrument/${instrument.title}`}>{instrument.description}</a>
-                                </p>
-                            </div>
-                        ))}
-                    </div>
+                            {filteredInstruments.map((instrument, index) => (
+                                <div key={index} className="bg-white shadow-md rounded-lg p-4">
+                                    <a href={`/instrument/${encodeURIComponent(instrument.title)}`} className="block">
+                                        <img
+                                            src={instrument.image}
+                                            alt={instrument.title}
+                                            className="w-full h-40 object-cover rounded-md mb-4"
+                                        />
+                                    </a>
+                                    <h3 className="text-xl font-bold text-gray-800">
+                                        <a href={`/instrument/${encodeURIComponent(instrument.title)}`}>{instrument.title}</a>
+                                    </h3>
+                                    <p className="text-gray-600 mb-4 ">
+                                        <a href={`/instrument/${encodeURIComponent(instrument.title)}`}>{instrument.description}</a>
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
                     ) : (
                         <p className="text-center text-gray-600">Tidak ada hasil ditemukan untuk "{searchQuery}".</p>
                     )}
                 </section>
             ) : (
-            <>
-            <section id="home" className="bg-gray-100 text-center text-gray-800">
-            </section>
+                <>
+                    <section id="home" className="bg-gray-100 text-center text-gray-800"></section>
 
-            <section id="services" className="container mx-auto px-4 py-16">
-                <h2 className="mb-8 text-center text-4xl font-bold text-orange-600">Alat Musik Modern</h2>
-                <h1 className="mb-8 text-center max-width: 500px text-1xl font-bold text-yellow-900">
-                    Ingin bermusik tanpa perlu membeli alat musik mahal? Sewa saja di Toko Alat Penyewaan Musik Terbaik Symphonia! 
-                    Kami menyediakan berbagai macam alat musik dengan kualitas terbaik. 
-                    Mulai dari gitar, drum, mikrofon, hingga alat musik tradisional. Sewa sekarang dan dapatkan harga spesial!
-                </h1>
-                <h2 className="mb-8 text-center text-2xl font-bold text-orange-600">"Musikmu, Sewaanmu."</h2>
+                    <section id="services" className="container mx-auto px-4 py-16">
+                        <h2 className="mb-8 text-center text-4xl font-bold text-orange-600">Alat Musik Modern</h2>
+                        <h1 className="mb-8 text-center max-width: 500px text-1xl font-bold text-yellow-900">
+                            Ingin bermusik tanpa perlu membeli alat musik mahal? Sewa saja di Toko Alat Penyewaan Musik Terbaik Symphonia!
+                            Kami menyediakan berbagai macam alat musik dengan kualitas terbaik.
+                            Mulai dari gitar, drum, mikrofon, hingga alat musik tradisional. Sewa sekarang dan dapatkan harga spesial!
+                        </h1>
+                        <h2 className="mb-8 text-center text-2xl font-bold text-orange-600">"Musikmu, Sewaanmu."</h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {instruments.map((instrument, index) => (
-                        <div key={index} className="bg-white shadow-md rounded-lg p-4">
-                            <img
-                                src={instrument.image}
-                                alt={instrument.title}
-                                className="w-full h-40 object-cover rounded-md mb-4"
-                            />
-                            <h3 className="text-xl font-bold text-gray-800">{instrument.title}</h3>
-                            <p className="text-gray-600 mb-4 line-clamp-2">{instrument.description}</p>
-                            <p className="text-orange-600 font-semibold mb-4">
-                                {formatRupiah(instrument.rentalPrice)}
-                            </p>
-                            <button className="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
-                                Sewa Sekarang
-                            </button>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                            {instruments.map((instrument, index) => (
+                                <div key={index} className="bg-white shadow-md rounded-lg p-4">
+                                    <img
+                                        src={instrument.image}
+                                        alt={instrument.title}
+                                        className="w-full h-40 object-cover rounded-md mb-4"
+                                    />
+                                    <h3 className="text-xl font-bold text-gray-800">{instrument.title}</h3>
+                                    <p className="text-gray-600 mb-4 line-clamp-2">{instrument.description}</p>
+                                    <p className="text-orange-600 font-semibold mb-4">
+                                        {formatRupiah(instrument.rentalPrice)}
+                                    </p>
+                                    <div className="flex gap-2">
+                                        <a href={`/instrument/${encodeURIComponent(instrument.title)}`}>
+                                            <button className="bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700">
+                                                Sewa Sekarang
+                                            </button>
+                                        </a>
+                                        <button
+                                            className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600"
+                                            title="Tambah ke Keranjang"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-            </section>
-            </>
+                    </section>
+                </>
             )}
             <Footer />
         </>

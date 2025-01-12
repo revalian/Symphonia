@@ -81,41 +81,42 @@ class LoanController extends Controller
     public function store(LoanRequest $request): RedirectResponse
     {
         try {
-
             $instrument = Instrument::query()
                 ->where('name', $request->instrument)
                 ->firstOrFail();
-
-                $user = User::query()
+    
+            $user = User::query()
                 ->where('name', $request->user)
                 ->firstOrFail();
-                
-                if(Loan::checkLoanInstrument($user->id, $instrument->id)){
-                    flashMessage('Pengguna sudah meminjam alat musik ini', 'error');
-                    return to_route('admin.loans.index');
-                }
-
-                $instrument->stock->available>0
-                ? tap(Loan::create([
+    
+            if (Loan::checkLoanInstrument($user->id, $instrument->id)) {
+                flashMessage('Pengguna sudah meminjam alat musik ini', 'error');
+                return to_route('admin.loans.index');
+            }
+    
+            if ($instrument->stock->available > 0) {
+                tap(Loan::create([
                     'loan_code' => str()->lower(str()->random(10)),
                     'user_id' => $user->id,
                     'instrument_id' => $instrument->id,
-                    'loan_date' => Carbon::now()->toDateString(),
-                    'due_date' => Carbon::now()->addDays(7)->toDateString(),
-                ]), function($loan){
+                    'loan_date' => $request->loan_date,
+                    'due_date' => $request->due_date,
+                ]), function ($loan) {
                     $loan->instrument->stock_loan();
                     flashMessage('Berhasil menambahkan peminjaman');
-                })
-
-                : flashMessage('Stok alat musik tidak tersedia', 'error');
-                return to_route('admin.loans.index');
-
+                });
+            } else {
+                flashMessage('Stok alat musik tidak tersedia', 'error');
+            }
+    
+            return to_route('admin.loans.index');
         } catch (Throwable $e) {
-            flashMessage(MessageType::ERROR->message(error:$e->getMessage()), 'error');
+            flashMessage(MessageType::ERROR->message(error: $e->getMessage()), 'error');
             return to_route('admin.loans.index');
         }
     }
-    public function edit(Loan $loan): Response 
+    
+    public function edit(Loan $loan): Response
     {
         return inertia('Admin/Loans/Edit', [
             'page_settings' => [
@@ -126,8 +127,8 @@ class LoanController extends Controller
             ],
             'page_data' => [
                 'date' => [
-                    'loan_date' => Carbon::now()->toDateString(),
-                    'due_date' => Carbon::now()->addDays(7)->toDateString(),
+                    'loan_date' => $loan->loan_date,
+                    'due_date' => $loan->due_date,
                 ],
                 'instruments' => Instrument::query()
                     ->select(['id', 'name'])
@@ -136,18 +137,19 @@ class LoanController extends Controller
                     ->map(fn($item) => [
                         'value' => $item->name,
                         'label' => $item->name,                    
-                ]),
+                    ]),
                 'users' => User::query()
                     ->select(['id', 'name'])
                     ->get()
                     ->map(fn($item) => [
                         'value' => $item->name,
                         'label' => $item->name,
-                ]),
+                    ]),
                 'loan' => $loan->load('user', 'instrument'),
             ],
         ]);
     }
+    
 
     public function update(Loan $loan, LoanRequest $request): RedirectResponse
     {

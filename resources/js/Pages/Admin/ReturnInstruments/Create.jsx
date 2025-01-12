@@ -1,7 +1,7 @@
-import FormActions from '@/Components/DialogsAndActions/FormActions';
-import HeaderSection from '@/Components/DialogsAndActions/HeaderSection';
-import InputField from '@/Components/FormElements/InputField';
-import SelectGroup from '@/Components/FormElements/SelectGroup';
+import FormActions from '@/Components/molecules/FormActions';
+import HeaderSection from '@/Components/organisms/HeaderSection';
+import InputField from '@/Components/molecules/InputField';
+import SelectGroup from '@/Components/molecules/SelectGroup';
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';

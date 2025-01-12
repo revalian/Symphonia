@@ -1,6 +1,6 @@
-import Filter from '@/Components/FiltersAndPagination/Filter';
-import Pagination from '@/Components/FiltersAndPagination/Pagination';
-import HeaderTitle from '@/Components/HeaderTitle';
+import Filter from '@/Components/molecules/Filter';
+import Pagination from '@/Components/molecules/Pagination';
+import HeaderTitle from '@/Components/molecules/HeaderTitle';
 import InstrumentTable from '@/Components/Tables/InstrumentTable';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';

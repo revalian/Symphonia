@@ -5,7 +5,7 @@ import { flashMessage } from '@/lib/utils';
 import { Link, router } from '@inertiajs/react';
 import { IconArrowsDownUp, IconPencil } from '@tabler/icons-react';
 import { toast } from 'sonner';
-import AlertDialogComponent from '../DialogsAndActions/AlertDialogComponent';
+import AlertDialogComponent from '../molecules/AlertDialogComponent';
 
 export default function InstrumentTable({ instruments, meta, onSortable }) {
     return (

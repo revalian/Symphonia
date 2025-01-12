@@ -1,12 +1,13 @@
-import Footer from '@/Components/Footer';
-import Navbar from '@/Components/Navbar';
+import Footer from '@/Components/organisms/Footer';
+import Navbar from '@/Components/organisms/Navbar';
+import { Head } from '@inertiajs/react';
 
 export default function AboutUs() {
     return (
         <div>
             {/* Navbar akan muncul di atas konten halaman */}
             <Navbar />
-
+            <Head title='Tentang'/>
             <div className="container mx-auto px-4 py-16">
                 {/* Header */}
                 <div className="mb-12 text-center">

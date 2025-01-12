@@ -1,6 +1,6 @@
-import FormActions from '@/Components/DialogsAndActions/FormActions';
-import InputField from '@/Components/FormElements/InputField';
-import HeaderTitle from '@/Components/HeaderTitle';
+import FormActions from '@/Components/molecules/FormActions';
+import InputField from '@/Components/molecules/InputField';
+import HeaderTitle from '@/Components/molecules/HeaderTitle';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { useForm } from '@inertiajs/react';

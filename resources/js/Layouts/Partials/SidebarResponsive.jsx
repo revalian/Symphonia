@@ -20,8 +20,8 @@ import {
     IconVersions,
 } from '@tabler/icons-react';
 
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import NavLinkResponsive from '@/Components/NavLinkResponsive';
+import ApplicationLogo from '@/Components/molecules/ApplicationLogo';
+import NavLinkResponsive from '@/Components/molecules/NavLinkResponsive';
 
 export default function SidebarResponsive({ url, auth }) {
     return (
@@ -38,7 +38,7 @@ export default function SidebarResponsive({ url, auth }) {
                 />
 
                 <div className="text-foregorund px-3 py-2 text-sm font-semibold">Statistik</div>
-                <NavLinkResponsive url="#" title="Statistik Peminjaman" icon={IconChartDots2} />
+                <NavLinkResponsive url={route('admin.loan-statistics.index')} active={url.startsWith('/admin/loan-statistics')} title="Statistik Peminjaman" icon={IconChartDots2} />
                 <NavLinkResponsive url="#" title="Laporan Denda" icon={IconMoneybag} />
                 <NavLinkResponsive url="#" title="Laporan Stok Alat Musik" icon={IconPiano} />
 
@@ -77,8 +77,8 @@ export default function SidebarResponsive({ url, auth }) {
                 />
 
                 <div className="text-foregorund px-3 py-2 text-sm font-semibold">Peran dan Izin</div>
-                <NavLinkResponsive url="#" title="Peran" icon={IconCircleKey} />
-                <NavLinkResponsive url="#" title="Izin" icon={IconVersions} />
+                <NavLinkResponsive url={route('admin.roles.index')} active={url.startsWith('/admin/roles')} title="Peran" icon={IconCircleKey} />
+                <NavLinkResponsive url={route('admin.permissions.index')} active={url.startsWith('/admin/permissions')}  title="Izin" icon={IconVersions} />
                 <NavLinkResponsive url="#" title="Tetapkan Izin" icon={IconKeyframe} />
                 <NavLinkResponsive url="#" title="Tetapkan Peran" icon={IconLayoutKanban} />
                 <NavLinkResponsive url="#" title="Akses Rute" icon={IconRoute} />

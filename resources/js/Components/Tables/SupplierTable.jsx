@@ -1,4 +1,4 @@
-import AlertDialogComponent from '@/Components/DialogsAndActions/AlertDialogComponent'; // This can be an additional component for AlertDialog
+import AlertDialogComponent from '@/Components/molecules/AlertDialogComponent'; // This can be an additional component for AlertDialog
 import { Button } from '@/Components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
 import { flashMessage } from '@/lib/utils';

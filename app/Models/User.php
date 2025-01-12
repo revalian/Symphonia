@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -64,7 +65,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeFilter(Builder $query, array $filters): void
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
-            $query->where(function ($query) use($search) {
+            $query->where(function ($query) use ($search) {
                 $query->whereAny([
                     'name',
                     'username',
