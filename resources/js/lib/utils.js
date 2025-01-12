@@ -6,7 +6,7 @@ export function cn(...inputs) {
 }
 
 export const FINEPAYMENTSTATUS = {
-    PENDING: 'TERTUNDA',
+    PENDING: 'Tertunda',
     SUCCESS: 'Sukses',
     FAILED: 'Gagal',
 };

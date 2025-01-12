@@ -8,14 +8,16 @@ import 'slick-carousel/slick/slick.css';
 const CardItem = ({ image, title, description }) => {
     return (
         <div className="overflow-hidden rounded-lg border shadow-lg">
-            {/* Mengubah ukuran gambar */}
-            <img src={image} alt={title} className="h-60 w-full object-cover" /> {/* Ganti h-40 menjadi h-60 */}
+            {/* Gambar dengan ukuran yang proporsional */}
+            <img src={image} alt={title} className="h-60 w-full object-cover" />
             <div className="p-4">
-                <h2 className="mb-2 text-lg font-semibold">{title}</h2>
+                <h2 className="mb-2 text-lg font-semibold text-gray-800">{title}</h2>
                 <p className="mb-4 text-gray-600">{description}</p>
-                <button className="rounded bg-orange-500 px-4 py-2 text-white hover:bg-orange-600">
-                    Sewa Sekarang
-                </button>
+                <div className="flex items-center justify-between">
+                    <button className="rounded bg-orange-500 px-4 py-2 text-sm font-medium text-white shadow-md transition-all duration-200 hover:bg-orange-600 hover:shadow-lg">
+                        Sewa Sekarang
+                    </button>
+                </div>
             </div>
         </div>
     );

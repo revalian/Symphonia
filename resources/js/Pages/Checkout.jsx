@@ -2,10 +2,16 @@ import React, { useState } from 'react';
 import Navbar from '@/Components/organisms/Navbar';
 import Footer from '@/Components/organisms/Footer';
 
-function CartItem({ item, onIncrement, onDecrement, onRemove }) {
+function CartItem({ item, onIncrement, onDecrement, onRemove, onToggle, isChecked }) {
     return (
         <div className="flex items-center justify-between border-b py-4">
             <div className="flex items-center">
+                <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={() => onToggle(item.id)}
+                    className="mr-4"
+                />
                 <img src={item.image} alt={item.name} className="w-20 h-20 object-cover mr-4" />
                 <div>
                     <h3 className="font-bold text-lg">{item.name}</h3>
@@ -56,12 +62,7 @@ function Checkout() {
         },
     ]);
 
-    const [form, setForm] = useState({
-        name: '',
-        email: '',
-        address: '',
-        phone: '',
-    });
+    const [selectedItems, setSelectedItems] = useState([]);
 
     const handleIncrement = (id) => {
         setCartItems((prev) =>
@@ -83,14 +84,26 @@ function Checkout() {
 
     const handleRemove = (id) => {
         setCartItems((prev) => prev.filter((item) => item.id !== id));
+        setSelectedItems((prev) => prev.filter((itemId) => itemId !== id));
     };
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setForm((prev) => ({ ...prev, [name]: value }));
+    const handleToggleItem = (id) => {
+        setSelectedItems((prev) =>
+            prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]
+        );
     };
 
-    const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const handleToggleAll = () => {
+        if (selectedItems.length === cartItems.length) {
+            setSelectedItems([]);
+        } else {
+            setSelectedItems(cartItems.map((item) => item.id));
+        }
+    };
+
+    const total = cartItems
+        .filter((item) => selectedItems.includes(item.id))
+        .reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -101,7 +114,18 @@ function Checkout() {
         <>
             <Navbar />
             <div className="container mx-auto px-4 py-16">
-                <h1 className="text-3xl font-bold text-center mb-8">Checkout</h1>
+                <h1 className="text-3xl font-bold text-center mb-8">Keranjang Belanja</h1>
+
+                {/* Checkbox All */}
+                <div className="flex items-center mb-4">
+                    <input
+                        type="checkbox"
+                        checked={selectedItems.length === cartItems.length}
+                        onChange={handleToggleAll}
+                        className="mr-2"
+                    />
+                    <label>Pilih Semua</label>
+                </div>
 
                 {/* Cart Items */}
                 <div className="mb-8">
@@ -112,6 +136,8 @@ function Checkout() {
                             onIncrement={handleIncrement}
                             onDecrement={handleDecrement}
                             onRemove={handleRemove}
+                            onToggle={handleToggleItem}
+                            isChecked={selectedItems.includes(item.id)}
                         />
                     ))}
                 </div>
@@ -119,66 +145,19 @@ function Checkout() {
                 {/* Order Summary */}
                 <div className="border-t pt-4 mb-8">
                     <h2 className="text-xl font-bold">Ringkasan Pesanan</h2>
-                    <p className="text-gray-600">Total Harga: <span className="font-bold">Rp {total}</span></p>
+                    <p className="text-gray-600">
+                        Total Harga: <span className="font-bold">Rp {total}</span>
+                    </p>
                 </div>
 
-                {/* Checkout Form */}
-                <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
-                    <h2 className="text-xl font-bold mb-4">Informasi Pengiriman</h2>
-                    <div className="mb-4">
-                        <label htmlFor="name" className="block text-gray-700">Nama</label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={form.name}
-                            onChange={handleInputChange}
-                            className="w-full px-4 py-2 border rounded"
-                            required
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="email" className="block text-gray-700">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={form.email}
-                            onChange={handleInputChange}
-                            className="w-full px-4 py-2 border rounded"
-                            required
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="address" className="block text-gray-700">Alamat</label>
-                        <textarea
-                            id="address"
-                            name="address"
-                            value={form.address}
-                            onChange={handleInputChange}
-                            className="w-full px-4 py-2 border rounded"
-                            required
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="phone" className="block text-gray-700">Nomor Telepon</label>
-                        <input
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            value={form.phone}
-                            onChange={handleInputChange}
-                            className="w-full px-4 py-2 border rounded"
-                            required
-                        />
-                    </div>
-                    <button
-                        type="submit"
-                        className="w-full bg-orange-600 text-white py-2 rounded hover:bg-orange-700"
-                    >
-                        Selesaikan Pesanan
-                    </button>
-                </form>
+                {/* Checkout Button */}
+                <button
+                    onClick={handleSubmit}
+                    className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded"
+                    disabled={selectedItems.length === 0}
+                >
+                    Checkout
+                </button>
             </div>
             <Footer />
         </>

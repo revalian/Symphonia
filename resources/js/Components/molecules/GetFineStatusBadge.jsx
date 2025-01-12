@@ -2,7 +2,7 @@ import { Badge } from '@/Components/ui/badge';
 import { FINEPAYMENTSTATUS } from '@/lib/utils';
 
 export default function GetFineStatusBadge({ status }) {
-    const { PENDING, SUCCSESS, FAILED } = FINEPAYMENTSTATUS;
+    const { PENDING, SUCCESS, FAILED } = FINEPAYMENTSTATUS; // Perbaikan typo di sini
 
     let badge, text;
 
@@ -11,9 +11,9 @@ export default function GetFineStatusBadge({ status }) {
             badge = 'text-white bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-500 border-yellow-500';
             text = PENDING;
             break;
-        case SUCCSESS:
+        case SUCCESS: // Perbaikan di sini
             badge = 'text-white bg-gradient-to-r from-green-400 via-green-500 to-green-500 border-green-500';
-            text = SUCCSESS;
+            text = SUCCESS;
             break;
         case FAILED:
             badge = 'text-white bg-gradient-to-r from-red-400 via-red-500 to-red-500 border-red-500';

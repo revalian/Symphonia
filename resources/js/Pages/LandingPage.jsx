@@ -2,6 +2,7 @@ import CardItemCarousel from '@/Components/organisms/CardItem';
 import Footer from '@/Components/organisms/Footer';
 import Navbar from '@/Components/organisms/Navbar';
 import axios from 'axios';
+import { Head } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
 export default function LandingPage() {
@@ -48,7 +49,7 @@ export default function LandingPage() {
     return (
         <>
             <Navbar onSearch={handleSearch} />
-            
+            <Head title='Beranda'/>
                 {isSearching ? (
                 // Tampilan saat pencarian aktif
                 <section className="container mx-auto px-4 py-16">

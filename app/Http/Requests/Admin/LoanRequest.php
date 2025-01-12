@@ -22,7 +22,7 @@ class LoanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user' => [
+             'user' => [
                 'required',
                 'exists:users,name'
             ],
@@ -31,7 +31,7 @@ class LoanRequest extends FormRequest
                 'exists:instruments,name'
             ],
             'loan_date' => 'required|date',
-        'due_date' => 'required|date|after_or_equal:loan_date',
+            'due_date' => 'required|date|after_or_equal:loan_date',
         ];
     }
 

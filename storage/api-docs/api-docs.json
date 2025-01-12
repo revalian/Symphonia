@@ -232,6 +232,172 @@
                     }
                 }
             }
+        },
+        "/return-instruments": {
+            "get": {
+                "tags": [
+                    "Return Instrument"
+                ],
+                "summary": "Return Instrument List",
+                "description": "Mengambil Data List Return Instrument",
+                "operationId": "4a82ff5201317b0bb2cb99876738f2ba",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": true,
+                                    "message": "Success",
+                                    "data": [
+                                        {
+                                            "id": 2,
+                                            "return_instrument_code": "RI002",
+                                            "status": "Pending",
+                                            "loan_id": 102,
+                                            "user_id": 202,
+                                            "instrument_id": 302,
+                                            "return_date": "2023-12-25",
+                                            "created_at": "2023-12-05"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/return-instruments/{id}": {
+            "get": {
+                "tags": [
+                    "Return Instrument"
+                ],
+                "summary": "Return Instrument Detail",
+                "description": "Mengambil Data Detail Return Instrument",
+                "operationId": "7e89f44face581a2904e464c0ea8133f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Return Instrument",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": true,
+                                    "message": "Success",
+                                    "data": {
+                                        "id": 2,
+                                        "return_instrument_code": "RI002",
+                                        "status": "Pending",
+                                        "loan_id": 102,
+                                        "user_id": 202,
+                                        "instrument_id": 302,
+                                        "return_date": "2023-12-25",
+                                        "created_at": "2023-12-05"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "User List",
+                "description": "Mengambil Data List User",
+                "operationId": "7208c29037df2b8bb02499ba39ed8a78",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": true,
+                                    "message": "Success",
+                                    "data": [
+                                        {
+                                            "id": 1,
+                                            "username": "johndoe",
+                                            "name": "John Doe",
+                                            "email": "john.doe@example.com",
+                                            "created_at": "2023-11-25",
+                                            "updated_at": "2023-12-05"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "username": "janesmith",
+                                            "name": "Jane Smith",
+                                            "email": "jane.smith@example.com",
+                                            "created_at": "2023-11-26",
+                                            "updated_at": "2023-12-06"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "User Detail",
+                "description": "Mengambil Data Detail User",
+                "operationId": "6946bbab7898f59a09e3c8e529a38907",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the User",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": true,
+                                    "message": "Success",
+                                    "data": {
+                                        "id": 1,
+                                        "username": "johndoe",
+                                        "name": "John Doe",
+                                        "email": "john.doe@example.com",
+                                        "created_at": "2023-11-25",
+                                        "updated_at": "2023-12-05"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "tags": [
@@ -242,6 +408,14 @@
         {
             "name": "Instrument",
             "description": "Instrument"
+        },
+        {
+            "name": "Return Instrument",
+            "description": "Return Instrument"
+        },
+        {
+            "name": "User",
+            "description": "User"
         }
     ]
 }
